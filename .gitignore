@@ -22,25 +22,25 @@ quartus/incremental_db/
 quartus/.qsys_edit
 quartus/*.txt
 
-src/diracplayer/.force_relink
-src/diracplayer/diracplayer.elf
-src/diracplayer/diracplayer.map
-src/diracplayer/diracplayer.objdump
-src/diracplayer/obj/
-src/diracplayer_bsp/.force_relink
-src/diracplayer_bsp/HAL/
-src/diracplayer_bsp/Makefile
-src/diracplayer_bsp/alt_sys_init.c
-src/diracplayer_bsp/drivers/
-src/diracplayer_bsp/libhal_bsp.a
-src/diracplayer_bsp/linker.h
-src/diracplayer_bsp/linker.x
-src/diracplayer_bsp/mem_init.mk
-src/diracplayer_bsp/memory.gdb
-src/diracplayer_bsp/obj/
-src/diracplayer_bsp/public.mk
-src/diracplayer_bsp/summary.html
-src/diracplayer_bsp/system.h
+src/**/.force_relink
+src/**/*.elf
+src/**/*.map
+src/**/*.objdump
+src/**/obj/
+src/**_bsp/.force_relink
+src/**_bsp/HAL/
+src/**_bsp/Makefile
+src/**_bsp/alt_sys_init.c
+src/**_bsp/drivers/
+src/**_bsp/libhal_bsp.a
+src/**_bsp/linker.h
+src/**_bsp/linker.x
+src/**_bsp/mem_init.mk
+src/**_bsp/memory.gdb
+src/**_bsp/obj/
+src/**_bsp/public.mk
+src/**_bsp/summary.html
+src/**_bsp/system.h
 
 
 .gitignore~
