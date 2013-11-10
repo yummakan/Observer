@@ -9,7 +9,7 @@ port (
 
    --clk 		:IN	std_logic;
 	reset		:in 	std_logic;
-	output	:out  std_logic);
+	output	:out  std_logic);q
 
 end entity;
 
