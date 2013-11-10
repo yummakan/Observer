@@ -17,6 +17,7 @@
 **/*.sof
 **/*.qws
 quartus/db/
+quartus/output_files/
 quartus/qsys_control_system/
 quartus/incremental_db/
 quartus/.qsys_edit
