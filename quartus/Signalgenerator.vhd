@@ -2,43 +2,20 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 use IEEE.NUMERIC_STD.ALL;
 
-ENTITY signalgenerator IS
-Generic ( n: integer   := 100;  -- counter maximum for outer loop 
-          
-         ); 
-PORT (
+entity signalgenerator is
+-- Generic ( n: integer   := 100;  -- counter maximum for outer loop 
+ --      ); 
+port (
 
    --clk 		:IN	std_logic;
-	reset		:IN 	std_logic;
-	output	:OUT  std_logic;
+	reset		:in 	std_logic;
+	output	:out  std_logic);
 
-)
-
-END signalgenerator;
-
-/*
-ARCHITECTURE Behavioural OF signalgenerator
- signal oscff   : std_logic := '0';
- signal ring    : std_logic_vector(7 downto 0);
- attribute KEEP of ring : signal is "true"; 
-BEGIN
-	PROCESS(clk)
-	 variable counter: unsigned (7 downto 0);
-	BEGIN
-	counter := "00000000";
-		if rising_edge(clk) then
-			if counter = n then
-				counter := "00000000";
-			end if;
-		end if;
-	
-	END PROCESS;
+end entity;
 
 
-END Behavioural ;
-*/
 
-ARCHITECTURE Behavioural OF signalgenerator
+architecture Behavioural of signalgenerator is
   signal oscff   : std_logic := '0';
   signal ring    : std_logic_vector(7 downto 0);
   attribute KEEP : string; 
@@ -55,4 +32,4 @@ begin
   -- die Ausgangszuweisung
   output <= oscff;
 
-END Behavioural ;
+end architecture ;
