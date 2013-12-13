@@ -46,3 +46,4 @@ src/**_bsp/system.h
 
 
 .gitignore~
+transcript
