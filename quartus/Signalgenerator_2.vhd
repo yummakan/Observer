@@ -17,59 +17,68 @@ end entity;
 
 
 architecture Behavioural of signalgenerator_2 is
---signal x	: std_logic;	
---variable count_value : natural := 0;
-
+constant counter_max : integer := 10;
 begin
-generator : process is
-variable counter_max : integer := 100;
+
+generator : process (clk,reset) is
+
 variable counter : integer := 0;
 variable j : integer := 0;
-variable n : integer := 0;
-variable periodic_cylce : integer := 1;
-variable reset_value : integer :=0;
-	begin
-	loop  -- main loop
-		loop -- loop for n counter
-			wait until (clk'event and clk = '1')or (reset'event and reset = '1');
-			exit when (reset = '1');
-			if n = counter_max then 
-				n := 1;
-			else
-				n := n + 1; 
-			end if;
-			j := 1;
-			periodic_cylce := 0; -- prepare first cycle
-			loop --loop for j counter
-				wait until (clk'event and clk = '1')or (reset'event and reset = '1');
-				exit when (reset'event and reset = '1');
-				if j = n then	
-					exit;
-				elsif periodic_cylce = 0 then-- indicates that the next output cycle must be low
-					counter := j;
-					while counter > 0 loop -- loop for zero output
-						output <= '0';
-						counter := counter -1;
-					end loop;
-					periodic_cylce := 1;
-				elsif periodic_cylce = 1 then-- indicates that the next output cycle must be high
-					counter := j;
-					while counter > 0 loop -- loop for high output
-						output <= '1';
-						counter := counter -1;
-					end loop;
-					periodic_cylce := 0; -- one periodic cycle finished, switch to next cycle
-					j := j+1;
-				end if;
-			end loop;--loop for j counter
-		end loop; -- loop for n counter
-		-- at this point, reset = '1'
-		
+variable n : integer := 1;
+variable periodic_cylce : integer :=0;
+variable is_output_cycle : integer := 0;
+begin
+	periodic_cylce := 0; -- prepare first cycle
+	--wait until rising_edge(clk);
+			--exit when reset='1';
+	if reset = '1' then
+		n:=1;
+		j:=0;
 		output <= '0';
-		n := 1;
-		wait until reset = '1';
-		end loop; -- main loop
+		is_output_cycle := 0;
+	end if;
+			
+	if( is_output_cycle = 0) then
+		-- controll n
+		if n = counter_max then  
+			n := 1;
+			j:=0;--will be incremented in th next if statement
+		end if;
+		--controll j
+		if(j < n) then --if j reaches maximum n , than n will be incremented
+			j := j + 1;
+		else
+			j:=1;
+			n := n + 1;
+		end if;
+		-- intialize anything else
+		is_output_cycle := 1;
+		periodic_cylce := 0;
+		counter := j;
+	end if;
+	
+	
+	if(is_output_cycle = 1)  then -- this is processing part which controls output
+		if(periodic_cylce = 0) then -- first half of a period starts with output = 0
+			if (counter > 0) then
+				output <= '0';
+				counter := counter - 1;
+			else
+				counter := j; --prepare for next periodic cycle
+				periodic_cylce := 1;
+			end if;
+		end if;
 
+		if(periodic_cylce = 1) then-- second half of a period starts with output = 1
+			if(counter > 0) then
+				output <= '1';
+				counter := counter - 1;
+			else
+				is_output_cycle := 0;
+			end if;
+		end if;
+	end if;
+				
 
-	end process generator;
+end process generator;
 end architecture ;
