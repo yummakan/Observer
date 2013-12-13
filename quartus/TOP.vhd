@@ -1,15 +1,15 @@
 LIBRARY ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+--use ieee.numeric_std.all;
 
 
 
 entity top is
 
 port (
-   --CLK_50 			:IN	std_logic;
-	key			:in 	std_logic;
-	output_s    :out  std_logic);
+   CLOCK_50         :in	std_logic;
+	reset_pin		:in 	std_logic;
+	GPIO   			:out std_logic_vector(7 downto 0) );
 
 end entity;
 
@@ -18,27 +18,23 @@ end entity;
 
 
 architecture rtl of top is
-component signalgenerator is 
+component signalgenerator_2 is 
 	port(
-		reset 			:in 	std_logic                    := 'X'; -- clk
-		output 			:out	std_logic 									-- export
+		clk		:in  std_logic							:= 'X';
+		reset 	:in 	std_logic                    := 'X'; 	-- clk
+		output 	:out	std_logic 				-- export
 	);
 
-end component signalgenerator;
-
-
-
-
+end component signalgenerator_2;
 --signal output_s  : std_logic;
-
-BEGIN
-
-signalgenerator_top : component signalgenerator
-port map (
-	output => output_s,
-	reset => key);
-
+begin
+	signalgenerator_top : component signalgenerator_2
+	port map (
+		output => GPIO(0),
+		reset => reset_pin,
+		clk => CLOCK_50 
+	);
 	
-	gpio_pin(0)<= output_s;
-	Key(0)<= key;
-END ARCHITECTURE;
+	--GPIO(0)<= output_s;
+	--reset_pin<= key;
+end architecture;
