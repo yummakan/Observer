@@ -28,13 +28,6 @@ shared variable periodic_cylce : integer :=0;
 signal drive_output : std_logic := '0';
 begin --BEGIN ARCHITECTURE
   
--- works parallel to the other processes
-drive_out: process (clk) is
-begin
-  if(rising_edge(clk))then
-    --output <= '1' ;
-  end if;
-end process drive_out;
 
 
 -- COMBINATORICAL DATAFLOW
