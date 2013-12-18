@@ -18,17 +18,17 @@ end entity;
 
 
 architecture rtl of top is
-component signalgenerator_2 is 
+component signalgenerator is 
 	port(
 		clk		:in  std_logic							:= 'X';
 		reset 	:in 	std_logic                    := 'X'; 	-- clk
 		output 	:out	std_logic 				-- export
 	);
 
-end component signalgenerator_2;
+end component signalgenerator;
 --signal output_s  : std_logic;
 begin
-	signalgenerator_top : component signalgenerator_2
+	signalgenerator_top : component signalgenerator
 	port map (
 		output => GPIO(0),
 		reset => reset_pin,
