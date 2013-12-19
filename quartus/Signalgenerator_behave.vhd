@@ -19,7 +19,8 @@ type GENERATOR_STATE_TYPE is 	( 	GENERATOR_STATE_CHECK,
  signal generator_state, generator_state_next 	: GENERATOR_STATE_TYPE;
  signal periodsize , periodsize_next,periodsize_old	: integer; -- range 0 to 8;
  signal cnt	, cnt_next,cnt_old			: integer; --range 0 to 8;
- signal output_next				: std_logic;
+ signal output_next		,output_current		: std_logic;
+
 
 begin --BEGIN ARCHITECTURE
 
@@ -30,6 +31,7 @@ begin --BEGIN ARCHITECTURE
 generator_next_state : process(generator_state, cnt,cnt_old, periodsize,periodsize_old)
 	begin
 	generator_state_next <= generator_state;
+	
 	case generator_state is
 	
 	when GENERATOR_STATE_CHECK =>
@@ -75,10 +77,9 @@ end  process generator_next_state;
 
 generator_output : process(generator_state, cnt, periodsize)
 	begin
-	output_next <= '0';
-	periodsize <= 1 ;
-	cnt <= 0;	
-	generator_state_next <= generator_state;
+	periodsize_next <= periodsize ;
+	cnt_next <= cnt;	
+	
 	
 	case generator_state is
 	
@@ -114,17 +115,18 @@ end  process generator_output;
 
 sync:process(clk,reset)
 begin
-	if(reset = '0') then
+	if(reset='0') then
 		generator_state <=  GENERATOR_STATE_RESET;
 		periodsize <= 1;
 		cnt <= 1;
-		--output <= 0;
-		output_next<='0';
+		output <= '1';
+		--output_next<='0';
 	elsif rising_edge(clk) then
 		generator_state <= generator_state_next;
 		periodsize 	<= periodsize_next;
 		cnt 		<= cnt_next;
 		output  	<= output_next;
+		output_current <= output_next;
 	end if;
 end process sync;
 

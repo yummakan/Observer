@@ -12,14 +12,14 @@ ARCHITECTURE \testbench_2.vhd_arch\   OF \testbench_2.vhd\   IS
   SIGNAL output   :  STD_LOGIC  ; 
   SIGNAL clk   :  STD_LOGIC  ; 
   SIGNAL reset   :  STD_LOGIC  ; 
-  COMPONENT signalgenerator_2  
+  COMPONENT signalgenerator  
     PORT ( 
       output  : out STD_LOGIC ; 
       clk  : in STD_LOGIC ; 
       reset  : in STD_LOGIC ); 
   END COMPONENT ; 
 BEGIN
-  DUT  : signalgenerator_2  
+  DUT  : signalgenerator 
     PORT MAP ( 
       output   => output  ,
       clk   => clk  ,

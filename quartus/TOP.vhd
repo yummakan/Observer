@@ -26,15 +26,17 @@ component signalgenerator is
 	);
 
 end component signalgenerator;
---signal output_s  : std_logic;
+--signal clk_s  : std_logic;
 begin
 	signalgenerator_top : component signalgenerator
 	port map (
-		output => GPIO(0),
+		output => GPIO(1),
 		reset => reset_pin,
 		clk => CLOCK_50 
+			
 	);
 	
+	GPIO(0) <= CLOCK_50 ;
 	--GPIO(0)<= output_s;
 	--reset_pin<= key;
 end architecture;
