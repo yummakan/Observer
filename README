@@ -39,20 +39,3 @@ Troubleshooting
 --> Eclipse won't start? Make sure the JRE in .../quartus/linux/jre is a 32-bit
     JRE.
 
-Debug Pins Setup
-===============
-
-1  -> spi_clk
-2  -> spi_ss_n
-3  -> spi_mosi
-4  -> spi_miso
-
-33 -> toggle at each received block  // Sampling on 5us
-34 -> high while reading
-35 ->
-36 ->
-37 ->
-38 ->
-39 ->
-40 ->
-vim:set sw=2 sts=2 et:

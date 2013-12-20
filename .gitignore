@@ -44,5 +44,5 @@ src/**_bsp/public.mk
 src/**_bsp/summary.html
 src/**_bsp/system.h
 
-
+README~
 .gitignore~
