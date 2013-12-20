@@ -23,6 +23,7 @@ quartus/qsys_control_system/
 quartus/incremental_db/
 quartus/.qsys_edit
 quartus/*.txt
+quartus/*.sdc~
 
 src/**/.force_relink
 src/**/*.elf
@@ -46,3 +47,4 @@ src/**_bsp/system.h
 
 README~
 .gitignore~
+transcript
