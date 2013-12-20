@@ -18,13 +18,14 @@
 #
 # Quartus II 64-Bit
 # Version 12.1 Build 177 11/07/2012 SJ Full Version
-# Date created = 21:45:52  November 08, 2013
+# Date created = 16:23:27  December 20, 2013
 #
 # -------------------------------------------------------------------------- #
 
 QUARTUS_VERSION = "12.1"
-DATE = "21:45:52  November 08, 2013"
+DATE = "16:23:27  December 20, 2013"
 
 # Revisions
 
 PROJECT_REVISION = "InvariantObserver"
+PROJECT_REVISION = "MyFirstFpga"
