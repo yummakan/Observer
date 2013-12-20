@@ -11,15 +11,16 @@ type GENERATOR_STATE_TYPE is 	( 	GENERATOR_STATE_CHECK,
                                  GENERATOR_STATE_START_FIRST_PERIOD,
                                  GENERATOR_STATE_END_FIRST_PERIOD,
 											GENERATOR_STATE_START_SECOND_PERIOD,
-											GENERATOR_STATE_NEXT_PERIOD,
+											GENERATOR_STATE_NEXT_PERIOD
                                  --GENERATOR_STATE_END_SECOND_PERIOD,
-                                 GENERATOR_STATE_RESET);
+                                 --GENERATOR_STATE_RESET
+										);
                                   
 
- signal generator_state, generator_state_next 	: GENERATOR_STATE_TYPE  := GENERATOR_STATE_CHECK;
+ signal generator_state, generator_state_next 			: GENERATOR_STATE_TYPE  := GENERATOR_STATE_CHECK;
  signal periodsize , periodsize_next,periodsize_old	: integer := 1; -- range 0 to 8 ;
- signal cnt	, cnt_next,cnt_old			: integer   := 1; --range 0 to 8;
- signal output_next		,output_current		: std_logic;
+ signal cnt	, cnt_next								: integer   := 1; --range 0 to 8;
+ signal output_next												: std_logic := '0';
 
 
 begin --BEGIN ARCHITECTURE
@@ -28,10 +29,11 @@ begin --BEGIN ARCHITECTURE
   --                    PROCESS : NEXT_STATE                        --
   --------------------------------------------------------------------
 
-generator_next_state : process(generator_state, cnt,cnt_old, periodsize,periodsize_old)
+generator_next_state : process(generator_state, cnt, periodsize,periodsize_old)
 	begin
 	generator_state_next <= generator_state;
 	
+ 
 	case generator_state is
 	
 	when GENERATOR_STATE_CHECK =>
@@ -39,8 +41,6 @@ generator_next_state : process(generator_state, cnt,cnt_old, periodsize,periodsi
 				generator_state_next <= GENERATOR_STATE_START_FIRST_PERIOD;
 			end if;
 
-	
-	
 	when GENERATOR_STATE_START_FIRST_PERIOD =>
 		if(cnt <= 1) then
 			generator_state_next <= GENERATOR_STATE_END_FIRST_PERIOD;
@@ -61,10 +61,12 @@ generator_next_state : process(generator_state, cnt,cnt_old, periodsize,periodsi
 			generator_state_next <= GENERATOR_STATE_CHECK;
 		end if;
 	--when GENERATOR_STATE_END_SECOND_PERIOD =>	
-	when GENERATOR_STATE_RESET =>
-		generator_state_next <= GENERATOR_STATE_CHECK ;
+	--when GENERATOR_STATE_RESET =>
+	--	if(periodsize=1)and(cnt=1)then
+	--		generator_state_next <= GENERATOR_STATE_CHECK ;
+	--	end if;
 	end case;
-		
+ 
 end  process generator_next_state;
 
 
@@ -73,22 +75,23 @@ end  process generator_next_state;
   --------------------------------------------------------------------
 
 generator_output : process(generator_state, cnt, periodsize)
+
 	begin
-	---periodsize_next <= periodsize ;
-	--cnt_next <= cnt;	
-	
+	periodsize_next <= periodsize ;
+	cnt_next <= cnt;
+ 
 	
 	case generator_state is
 	
 	when GENERATOR_STATE_CHECK =>
 		if(periodsize < 1 or periodsize > counter_max) then
 			periodsize_old <= 1;
-			cnt_old <= 1;
+			--cnt_old <= 1;
 			periodsize_next <= 1;
 			cnt_next <= 1;
 		elsif(periodsize >=1 and periodsize <= counter_max) then
 		  periodsize_old <= periodsize;
-		  cnt_old <= cnt;
+		  --cnt_old <= cnt;
 		  periodsize_next <= periodsize + 1;
 		  cnt_next <= periodsize + 1;
 		end if;
@@ -107,33 +110,48 @@ generator_output : process(generator_state, cnt, periodsize)
 	when GENERATOR_STATE_NEXT_PERIOD =>	
 			periodsize_old <= periodsize;
 			periodsize_next <= periodsize + 1;
-			cnt_old <= cnt;
+			--cnt_old <= cnt;
 			cnt_next <= periodsize + 1;
 			
-	when GENERATOR_STATE_RESET => 
-		null;
-	end case;	
+	--when GENERATOR_STATE_RESET => 
+	--	periodsize_next <= 1;
+	--	cnt_next<=1;
+	--	output_next<='0';
+		
+	end case;
+ 
 end  process generator_output;
 
 sync:process(clk)
+variable reset_event: boolean :=FALSE;
 begin
---	if(reset='0') then
-	--	generator_state <=  GENERATOR_STATE_RESET;
-		--periodsize_old<=periodsize;
-		--cnt_old<=cnt;
---		periodsize <= 1;
-	--	cnt <= 1;
-	--	output <= '1';
+	
+ if rising_edge(clk) then
+	if( reset='0' and not reset_event) then
+		generator_state <=  GENERATOR_STATE_CHECK ;
+		reset_event := TRUE;
+		--not allowed to set this signals, already set in another process
+		--generator_state_next <= GENERATOR_STATE_RESET;
+		--periodsize_old<=1;
+		--cnt_old<=1;
+		--periodsize <= 1;
+		--cnt <= 1;
+		output <= '0';
+		periodsize 	<= 1;
+		cnt 		<= 1;
+		output  	<= '0';
 		--output_next<='0';
-	if rising_edge(clk) then
+	else
+	
+		if(reset='1') then
+			reset_event := FALSE;
+		end if;
 		generator_state <= generator_state_next;
 		periodsize 	<= periodsize_next;
-		--periodsize_old<=periodsize;
-		--cnt_old<=cnt;
 		cnt 		<= cnt_next;
 		output  	<= output_next;
-		output_current <= output_next;
-	end if;
+   end if;
+ end if;
 end process sync;
 
 
