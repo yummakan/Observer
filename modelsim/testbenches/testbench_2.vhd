@@ -1035,6 +1035,6 @@ BEGIN
 	wait;
  End Process;
  
- reset <= '0';
+ reset <= '1';
  
 END;
