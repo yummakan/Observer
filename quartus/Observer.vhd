@@ -15,7 +15,7 @@ port (
 	signal_phi		:in	std_logic;
 	
 	--divider	:in 	std_logic_vector(3 downto 0);
-	output				:out  std_logic;
+	output			:out  std_logic;
 	enable_out		:out	std_logic
 	);
 	
