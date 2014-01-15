@@ -8,7 +8,7 @@ entity observer is
  --      ); 
 port (
 
-   clk 				:in	std_logic;
+  clk 				:in	std_logic;
 	reset				:in 	std_logic;
 	enable_in		:in   std_logic;
 	invariance_tau	:in 	std_logic_vector(7 downto 0);

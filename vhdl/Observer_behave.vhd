@@ -7,14 +7,15 @@ use IEEE.NUMERIC_STD.ALL;
 architecture Behavioural of observer is
 
 constant observernumber 			 							: integer := 1;
-signal count,count_next,inc_tau								: unsigned(8 downto 0):= (others => '0');
-signal cycle														: integer := 0;
-signal cycle_reset ,output_next		: std_logic := '0';
+--constant one                       : unsigned(8 downto 0) := ( others => '0';one(0)='1');
+signal count,count_next,inc_tau				: unsigned(8 downto 0):= (others => '0');
+signal cycle,cycle_next														: integer := 0;
+signal output_next		: std_logic := '0';
 begin --BEGIN ARCHITECTURE
 
 
 	--parallel logic
-	inc_tau <= unsigned(invariance_tau) + 1 ;
+	inc_tau <= unsigned(invariance_tau) +  to_unsigned(1,9) ;
 	
 	
 	
@@ -22,17 +23,19 @@ begin --BEGIN ARCHITECTURE
 		variable count_reset :integer := 0;
 	begin
 		count_next <= 	count;
-		
+		cycle_next <= cycle;
 		
 			-- part of algorithm  begin
 		if(cycle = observernumber) then -- m cycles passed
 			if(signal_phi = '0') then   -- if w(phi) = 0)
 				count_reset := 1;
 			end if;
-			cycle_reset <= '0';
+			cycle_next <= 0;
+		else
+		  cycle_next <= cycle + 1; --every clock cycle
 		end if;
 	
-		if((count = inc_tau) and (count_reset = 0)) then
+		if((count = inc_tau) and (count_reset = 0) and (enable_in='1')) then
 			output_next <= '1';
 		else
 			output_next <= '0';
@@ -40,9 +43,9 @@ begin --BEGIN ARCHITECTURE
 		
 		if(count_reset = 1) then
 			count_reset := 0;
-			count_next <= "000000000";
-		elsif((count+1)< inc_tau) then
-			count_next <= count + 1;
+			count_next <= "000000001";
+		elsif((count+1)<= inc_tau) then
+			count_next <= count + 1; --every clock cycle
 		end if;
 		
 		end process async;
@@ -56,16 +59,18 @@ begin --BEGIN ARCHITECTURE
 	variable switch_enable_out :integer := 0;
 	begin    -- count darf kein signal sein , da Änderungen sofort passieren müssen !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	if (reset = '1') then
-		if(rising_edge(clk))then
+		if(clk'event)then
 			if(enable_in = '1') then
 			
 				count<=count_next;
-				
-				if(cycle_reset = '1')then
-					cycle <= 0;
-				else 
-					cycle <= cycle + 1;
-				end if;
+				cycle <= cycle_next;
+				--keine abfragen über cycle nur sezzen !!!
+				--if(cycle_reset = '1')then
+				 -- cycle_reset <= '0';
+					--cycle <= 0;
+				--else 
+					--cycle <= cycle + 1;
+				--end if;
 				
 				if(switch_enable_out = 1) then
 					enable_out <= '1';
