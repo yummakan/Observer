@@ -4,8 +4,9 @@ use IEEE.NUMERIC_STD.ALL;
 
 
 entity observer is
--- Generic ( n: integer   := 100;  -- counter maximum for outer loop 
- --      ); 
+generic ( 
+  observernumber : integer   := 1  -- how many observer are instantiated
+      ); 
 port (
 
   clk 				:in	std_logic;

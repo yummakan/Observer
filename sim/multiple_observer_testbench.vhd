@@ -1,16 +1,18 @@
 
+
 LIBRARY ieee  ; 
 LIBRARY std  ; 
 USE ieee.std_logic_1164.all  ; 
 USE ieee.NUMERIC_STD.all  ; 
 
-ENTITY Observer_testbench  IS 
+ENTITY multiple_observer_testbench  IS 
 END ; 
 
 
-ARCHITECTURE testbench_arch  OF Observer_testbench   IS
+ARCHITECTURE testbench_arch  OF multiple_observer_testbench   IS
   
   constant CLOCK_PERIOD :time := 20ns;
+   
   
   SIGNAL output_tb   :  STD_LOGIC  ; 
   SIGNAL clk_tb      :  STD_LOGIC  ; 
@@ -19,6 +21,9 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
   SIGNAL tau_tb      :  std_logic_vector(7 downto 0);
   SIGNAL next_obs_tb :  STD_LOGIC  ;
   SIGNAL phi_tb      :  STD_LOGIC  ;
+  
+  SIGNAL en1,en2    :   STD_LOGIC  ;
+  SIGNAL add1,add2,add3:STD_LOGIC;
   
   procedure CYCLE(
         signal clk : out std_logic) is
@@ -33,8 +38,8 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
   
   COMPONENT observer 
     generic ( 
-      observernumber : integer   := 1  -- how many observer are instantiated
-      );
+        observernumber : integer   := 1  -- how many observer are instantiated
+      ); 
     PORT ( 
         clk 				     :in	std_logic;
 	      reset				    :in 	std_logic;
@@ -55,23 +60,16 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
   END COMPONENT;
   
 BEGIN
-  OBS  : observer 
-    PORT MAP ( 
-      output    =>  output_tb  ,
-      clk       => clk_tb  ,
-      reset     => reset_tb,
-      enable_in => enable_tb,
-      invariance_tau => tau_tb,
-      signal_phi=> phi_tb,
-      enable_out=> next_obs_tb
-      ) ; 
+  
+  SIG : signalgenerator PORT MAP (  clk => clk_tb, reset=>reset_tb, output=>phi_tb );  
+  
+  OBS_1  :  observer GENERIC MAP(observernumber => 3) PORT MAP ( output=>add1,clk=>clk_tb,reset =>reset_tb,enable_in => enable_tb,invariance_tau => tau_tb,signal_phi=> phi_tb,enable_out=> en1) ; 
+  OBS_2  :  observer GENERIC MAP(observernumber => 3) PORT MAP ( output=>add2,clk=>clk_tb,reset =>reset_tb,enable_in => en1,invariance_tau => tau_tb,signal_phi=> phi_tb,enable_out=> en2) ; 
+  OBS_3  :  observer GENERIC MAP(observernumber => 3) PORT MAP ( output=>add3,clk=>clk_tb,reset =>reset_tb,enable_in => en2,invariance_tau => tau_tb,signal_phi=> phi_tb,enable_out=> next_obs_tb) ;
     
-  SIG : signalgenerator
-    PORT MAP (
-      clk => clk_tb,
-      reset=>reset_tb,
-      output=>phi_tb
-    );  
+    
+   output_tb <= (add1  and add2 and add3) or '0'; 
+    
     
     -- Begin of testbench
     process
@@ -93,11 +91,11 @@ BEGIN
       CYCLE(clk_tb);--9
       enable_tb <= '1';
       CYCLE(clk_tb);--10
+      assert(en1 = '1');
       CYCLE(clk_tb);--12
-      
-      assert(next_obs_tb = '1');
-      
+      assert(en2 = '1');
       CYCLE(clk_tb);--13
+      assert(next_obs_tb = '1');
       CYCLE(clk_tb);--14
       CYCLE(clk_tb);--15
       CYCLE(clk_tb);--16

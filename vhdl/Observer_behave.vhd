@@ -6,7 +6,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 architecture Behavioural of observer is
 
-constant observernumber 			 							: integer := 1;
+--constant observernumber 			 							: integer := 1;
 --constant one                       : unsigned(8 downto 0) := ( others => '0';one(0)='1');
 signal count,count_next,inc_tau				: unsigned(8 downto 0):= (others => '0');
 signal cycle,cycle_next														: integer := 0;
@@ -73,7 +73,9 @@ begin --BEGIN ARCHITECTURE
 				--end if;
 				
 				if(switch_enable_out = 1) then
-					enable_out <= '1';
+				  --if(rising_edge(clk)) then
+					 enable_out <= '1';
+					--end if;
 				else
 					switch_enable_out := 1;
 				end if;
