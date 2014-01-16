@@ -51,6 +51,17 @@ ARCHITECTURE testbench_arch  OF multiple_observer_testbench   IS
     ); 
   END COMPONENT ; 
     
+  FOR OBS_1 : observer 
+    use entity 
+        work.observer(Behavioural_2); 
+  FOR OBS_2 : observer 
+    use entity 
+        work.observer(Behavioural_2); 
+  FOR OBS_3 : observer 
+    use entity 
+        work.observer(Behavioural_2);  
+    
+    
   COMPONENT signalgenerator
     PORT(
       clk 		:in	std_logic;
@@ -133,11 +144,13 @@ BEGIN
       CYCLE(clk_tb);--48
       CYCLE(clk_tb);--49
       CYCLE(clk_tb);--50
+      reset_tb <= '0';
       CYCLE(clk_tb);--51
       CYCLE(clk_tb);--52
       CYCLE(clk_tb);--53
       CYCLE(clk_tb);--54
       CYCLE(clk_tb);--55
+      reset_tb <= '1';
       CYCLE(clk_tb);--56
       CYCLE(clk_tb);--57
       CYCLE(clk_tb);--58

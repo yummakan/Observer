@@ -31,7 +31,7 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
   
   
   
-  COMPONENT observer 
+  COMPONENT observer
     generic ( 
       observernumber : integer   := 1  -- how many observer are instantiated
       );
@@ -45,6 +45,11 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
 	      enable_out		 :out	std_logic
     ); 
   END COMPONENT ; 
+    
+  FOR OBS : observer 
+    use entity 
+        work.observer(Behavioural_2);
+    
     
   COMPONENT signalgenerator
     PORT(
@@ -65,6 +70,7 @@ BEGIN
       signal_phi=> phi_tb,
       enable_out=> next_obs_tb
       ) ; 
+    
     
   SIG : signalgenerator
     PORT MAP (

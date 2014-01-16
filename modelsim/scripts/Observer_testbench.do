@@ -10,10 +10,11 @@ add wave clk_tb
 add wave reset_tb
 add wave enable_tb
 add wave next_obs_tb
-add wave phi_tb
-add wave output_tb
-add wave /observer_testbench/OBS/cycle
+add wave -color "yellow" phi_tb
+#add wave /observer_testbench/OBS/cycle
 add wave /observer_testbench/OBS/count
+add wave -color "light blue" output_tb
+
 
 
 run -all
