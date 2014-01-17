@@ -102,35 +102,31 @@ generator_output : process(generator_state, cnt, periodsize)
  
 end  process generator_output;
 
-sync:process(clk)
-variable reset_event: boolean :=FALSE;
+sync:process(clk,reset)
+--variable reset_event: boolean :=FALSE;
 begin
-	
- if rising_edge(clk) then
-	if( reset='0' and not reset_event) then
-		generator_state <=  GENERATOR_STATE_FIRST_PERIOD ;
-		reset_event := TRUE;
-		--not allowed to set this signals, already set in another process
-		--generator_state_next <= GENERATOR_STATE_RESET;
-		--periodsize_old<=1;
-		--cnt_old<=1;
-		--periodsize <= 1;
-		--cnt <= 1;
-		output <= '0';
-		periodsize 	<= 1;
-		cnt 		<= 1;
-		output  	<= '0';
-		--output_next<='0';
-	else
-	
-		if(reset='1') then
-			reset_event := FALSE;
-		end if;
-		generator_state <= generator_state_next;
-		periodsize 	<= periodsize_next;
-		cnt 		<= cnt_next;
-		output  	<= output_next;
-   end if;
+
+  if( reset='1') then
+         
+    generator_state <=  GENERATOR_STATE_FIRST_PERIOD ;
+    --reset_event := TRUE;
+    
+    output <= '0';
+    periodsize 	<= 1;
+    cnt 	<= 1;
+    output  	<= '0';
+    --output_next<='0';
+        
+  else
+    if rising_edge(clk) then
+      --if(reset='1') then
+      --  reset_event := FALSE;
+      --end if;
+      generator_state <= generator_state_next;
+      periodsize 	<= periodsize_next;
+      cnt 		<= cnt_next;
+      output  	<= output_next;
+    end if;
  end if;
 end process sync;
 
