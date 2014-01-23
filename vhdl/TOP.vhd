@@ -97,7 +97,8 @@ begin
       );
 
    PLL:  AltPLa
-    PORT MAP (areset => reset_s,inclk0 => CLOCK_50  ,c2 => clk_s,c3=>clk_g   ) ;
+    --PORT MAP (areset => reset_s,inclk0 => CLOCK_50  ,c2 => clk_s,c3=>clk_g   ) ;
+	 PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
 -------------------------------------------------------------------------------
 -- <BEGIN_2> 
 -------------------------------------------------------------------------------
@@ -115,7 +116,8 @@ begin
 		
 	
 	
-	--clk_s <= CLOCK_50;
+	clk_s <= CLOCK_50;
+	clk_g <= CLOCK_50;
         reset_s <= not KEY(0);
 	GPIO(0) <= clk_s; 	--clk
 	GPIO(1) <= reset_s;	--reset_key(0)
