@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity observer is
 generic ( 
-  observernumber : std_logic_vector(15 downto 0)   := (observernumber(0)<= '1',others =>'0')  -- how many observer are instantiated
+  observernumber:unsigned(15 downto 0):=x"0001"  -- how many observer are instantiated
       ); 
 port (
 

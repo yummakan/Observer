@@ -17,9 +17,9 @@ begin --BEGIN ARCHITECTURE
   inc_tau <= unsigned(invariance_tau) +  to_unsigned(1,9) ;
 	
   sync: process(clk)
-    variable count_reset :integer := 0;
-    variable cycle :integer :=1;
-    variable switch :integer :=0;
+    variable count_reset :std_logic := '0';
+    variable cycle :unsigned(15 downto 0):=(others => '0');
+    variable switch :std_logic :='0';
 		 
   begin
     --output_next <= output;
@@ -31,15 +31,15 @@ begin --BEGIN ARCHITECTURE
           -- part of algorithm  begin
           if(cycle = observernumber) then -- m cycles passed
             if(signal_phi = '0') then   -- if w(phi) = 0)
-              count_reset := 1;
+              count_reset := '1';
             end if;
-            cycle := 1;
+            cycle := to_unsigned(1,16);
           else
             cycle := cycle + 1; --every clock cycle
           end if;
           
-          if(count_reset = 1) then
-            count_reset := 0;
+          if(count_reset = '1') then
+            count_reset := '0';
             count <= "000000001";
             output <= '0';
           elsif((count+1)<= inc_tau) then
@@ -48,23 +48,23 @@ begin --BEGIN ARCHITECTURE
             output<= '1';
           end if;
           
-          if(switch = 1) then
+          if(switch = '1') then
             enable_out <= '1';
           else 
-            switch := 1;
+            switch := '1';
           end if;
         else
           output		<=	'0';
           count 	<= (others => '0');
           enable_out	<=  '0';
-          switch :=0;
+          switch :='0';
         end if;--if(enable_in)
       end if;--if(clk'event)	
     else
       output        <=	'0';
       count 	<= (others => '0');
       enable_out	<=  '0';
-      switch :=0;
+      switch :='0';
     end if;--if(reset)
   end process sync;
 end architecture ; --END ARCHITECTURE

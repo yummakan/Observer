@@ -23,10 +23,11 @@ component AltPLa is
 	(
 		areset		: IN STD_LOGIC  := '0';
 		inclk0		: IN STD_LOGIC  := '0';
-		c0		: OUT STD_LOGIC ; -- 25 Mhz
-		c1		: OUT STD_LOGIC ;	-- 10 Mhz
-		c2		: OUT STD_LOGIC ; --	1 Mhz
-		c3		: OUT STD_LOGIC ; -- 0,5 Mhz
+		c0		    : OUT STD_LOGIC ; -- 50 Mhz
+		c1		    : OUT STD_LOGIC ; -- 80 Mhz
+		c2		    : OUT STD_LOGIC ; -- 100 Mhz
+		c3		    : OUT STD_LOGIC ; -- 120 Mhz
+        c4		    : OUT STD_LOGIC ; -- 150 Mhz
 		locked		: OUT STD_LOGIC 
 	);
 end component;  
@@ -42,7 +43,7 @@ end component signalgenerator;
 
 component observer 
     generic ( 
-        observernumber : integer   := 1  -- how many observer are instantiated
+        observernumber :unsigned(15 downto 0):=x"0001"  -- how many observer are instantiated
       ); 
     PORT ( 
       clk 				:in	std_logic			:= 'X';
@@ -57,14 +58,14 @@ end component;
 
 -------------------------------------------------------------------------------
 --  <BEGIN_0> 
--------------------------------------------------------------------------------
+
 FOR OBS_1 : observer 
   use entity  work.observer(Behavioural); 
 FOR OBS_2 : observer 
   use entity  work.observer(Behavioural); 
 FOR OBS_3 : observer 
   use entity  work.observer(Behavioural);    
--------------------------------------------------------------------------------
+
 --  <END_0>
 -------------------------------------------------------------------------------
   
@@ -76,13 +77,13 @@ signal phi_s		:  std_logic	:='0';
 signal next_obs_s       :  std_logic	:='0';
 -------------------------------------------------------------------------------
 -- <BEGIN_1> 
--------------------------------------------------------------------------------
+
 signal add1			:	std_logic	:='0';
 signal add2			:	std_logic	:='0';
 signal add3			:	std_logic	:='0';
 signal en1			:	std_logic	:='0';
 signal en2			:	std_logic	:='0';
--------------------------------------------------------------------------------
+
 -- <END_1>
 -------------------------------------------------------------------------------
 signal output_s	: std_logic	:='0';
@@ -97,27 +98,27 @@ begin
       );
 
    PLL:  AltPLa
-    --PORT MAP (areset => reset_s,inclk0 => CLOCK_50  ,c2 => clk_s,c3=>clk_g   ) ;
-	 PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
+    PORT MAP (areset => reset_s,inclk0 => CLOCK_50  ,c1 => clk_s,c0 => clk_g   ) ;
+	-- PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
 -------------------------------------------------------------------------------
 -- <BEGIN_2> 
--------------------------------------------------------------------------------
+
   
-  OBS_1:  observer GENERIC MAP(observernumber => 3) 
+  OBS_1:  observer GENERIC MAP(observernumber => x"0003") 
     PORT MAP ( output=>add1,	clk=>clk_s,reset =>reset_s, enable_in => enable_s,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=> en1) ; 
-  OBS_2  :  observer GENERIC MAP(observernumber => 3) 
+  OBS_2  :  observer GENERIC MAP(observernumber =>  x"0003") 
     PORT MAP ( output=>add2,	clk=>clk_s,reset =>reset_s, enable_in => en1,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=> en2) ; 
-  OBS_3  :  observer GENERIC MAP(observernumber => 3) 	
+  OBS_3  :  observer GENERIC MAP(observernumber =>  x"0003") 	
     PORT MAP ( output=>add3,	clk=>clk_s,reset =>reset_s, enable_in => en2,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=> next_obs_s) ;
--------------------------------------------------------------------------------
+
 -- <END_2>
 -------------------------------------------------------------------------------		
  
 		
 	
 	
-	clk_s <= CLOCK_50;
-	clk_g <= CLOCK_50;
+	--clk_s <= CLOCK_50;
+	--clk_g <= CLOCK_50;
         reset_s <= not KEY(0);
 	GPIO(0) <= clk_s; 	--clk
 	GPIO(1) <= reset_s;	--reset_key(0)
@@ -136,9 +137,9 @@ begin
 	tau_s		<= std_logic_vector(to_unsigned(tau_range,8));
 -------------------------------------------------------------------------------
 -- <BEGIN_3> 
--------------------------------------------------------------------------------	
-	output_s <= (add1  and add2 and add3) or '0';
--------------------------------------------------------------------------------
+
+	output_s <= (add1  and add2 and add3);
+
 -- <END_3> 
 -------------------------------------------------------------------------------	
 	sync:process(clk_s)
