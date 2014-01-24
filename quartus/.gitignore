@@ -1,4 +1,7 @@
 /output_files
 *_old
 *.log
+*.qip
+/greybox_tmp
+/log
 Makefile~

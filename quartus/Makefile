@@ -16,6 +16,7 @@ LOG_FILE=$(LOG_DIR)/BUILD_$(shell date '+%d.%m.%y-%H_%M_%S').log
 
 .PHONY: all
 all:
+	mkdir -p $(LOG_DIR)
 	$(MAKE) quartus
 
 
@@ -25,7 +26,7 @@ quartus:
 	@echo "---------------------------------------------" >> $(LOG_FILE)
 	@echo "-                  QUARTUS                  -" >> $(LOG_FILE)
 	@echo "---------------------------------------------" >> $(LOG_FILE)
-	$(NIOS_SHELL) quartus_sh --flow compile InvariantObserver 2>&1 | tee -a $(LOG_FILE) 
+	$(NIOS_SHELL) quartus_sh --64bit --flow compile InvariantObserver 2>&1   | tee -a $(LOG_FILE)  
 
 .PHONY: download
 download:
