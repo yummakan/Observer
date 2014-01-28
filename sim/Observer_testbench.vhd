@@ -33,7 +33,7 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
   
   COMPONENT observer
     generic ( 
-      observernumber : integer   := 1  -- how many observer are instantiated
+      observernumber : unsigned(15 downto 0):=x"0001"  -- how many observer are instantiated
       );
     PORT ( 
         clk 				     :in	std_logic;
@@ -48,7 +48,7 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
     
   FOR OBS : observer 
     use entity 
-        work.observer(Behavioural_2);
+        work.observer(Behavioural);
     
     
   COMPONENT signalgenerator

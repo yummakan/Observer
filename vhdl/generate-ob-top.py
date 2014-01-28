@@ -67,15 +67,20 @@ area2="\n"
 area3="\n"
 area4="\n"
 
-signal_add_begin   = "signal add"
+#signal_add_begin   = "signal add"
+signal_add_begin   = "signal add: std_logic_vector("
+signal_add_end    = " downto 0):=(others=>'0');\n"
+signal_add2_begin = "signal add"
 signal_enable_begin= "signal en"  # number always begins with 1 and ends with number-1
 				#no enable signal for the first observer and the last observer
 signal_end         = "	    :std_logic:='0';\n"
 
 port_map_first     = "OBS_" #number of observer
 port_map_second    = ":  observer GENERIC MAP(observernumber => x" + '"' # hardcode number of obs
-port_map_third     = '"'+")\n    PORT MAP ( output=>add" #output obs to signal add
-port_map_fourth    = ",clk=>clk_s,reset =>reset_s, enable_in =>" # number of enable signal to the next obs (first is always enable_s) 
+port_map_third     = '"'+")\n    PORT MAP ( output=>add(" #output obs to signal add
+port_map_third_2     = '"'+")\n    PORT MAP ( output=>add" #output obs to signal add
+port_map_fourth    = "),clk=>clk_s,reset =>reset_s, enable_in =>" # number of enable signal to the next obs (first is always enable_s) 
+port_map_fourth_2    = ",clk=>clk_s,reset =>reset_s, enable_in =>" # number of enable signal to the next obs (first is always enable_s) 
 port_map_fifth     = ",invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>" # observer enable the next observer ()
 port_map_sixth    =  ") ;\n"
 
@@ -103,10 +108,15 @@ def create_obs_list():
 
 def create_signals():
     
-    list1= signal_add_begin + str(0) + signal_end
+    #list1= signal_add_begin + str(0) + signal_end
+    if number == 1:
+        list1 = signal_add2_begin + str(0) + signal_end  
+    else:
+        list1= signal_add_begin + str(number-1) + signal_add_end
+
     list2= ""
     for i in range(1,number):
-        list1 = list1 + signal_add_begin + str(i) + signal_end
+        #list1 = list1 + signal_add_begin + str(i) + signal_end
         list2 = list2 + signal_enable_begin + str(i) + signal_end
     return (list1 + list2)
 
@@ -132,19 +142,24 @@ def create_port_map():
     else:
         result=result +port_map_first + str(number-1) + port_map_second # number of current obs
         result=result +  numberobs    # hardcode number of obs
-        result = result + port_map_third + str(number-1) #  PORT MAP ( output=>add(number) ...)
-        result = result + port_map_fourth + "enable_s"#  # number of enable signal to the next obs (first is always enable_s) 
+        result = result + port_map_third_2 + str(number-1) #  PORT MAP ( output=>add(number) ...)
+        result = result + port_map_fourth_2 + "enable_s"#  # number of enable signal to the next obs (first is always enable_s) 
         result = result + port_map_fifth + " next_obs_s" + port_map_sixth  
     
     return result
 
 
 def create_output():
-    result=output_begin
-    result = result + output_first
-    for i in range(number-1):
-        result = result + str(i) + output_next
-    result = result + str(number-1) + output_end
+    
+    if number==1:
+        result=" output_s <=add0;"
+    else:
+        result="output_s <= and_reduce(add);"
+    #result=output_begin
+    #result = result + output_first
+    #for i in range(number-1):
+    #    result = result + str(i) + output_next
+    #result = result + str(number-1) + output_end   
     return result
 
 

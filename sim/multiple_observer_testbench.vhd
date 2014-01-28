@@ -38,7 +38,7 @@ ARCHITECTURE testbench_arch  OF multiple_observer_testbench   IS
   
   COMPONENT observer 
     generic ( 
-        observernumber : integer   := 1  -- how many observer are instantiated
+        observernumber : unsigned(15 downto 0):=x"0001"  -- how many observer are instantiated
       ); 
     PORT ( 
         clk 				     :in	std_logic;
@@ -53,13 +53,13 @@ ARCHITECTURE testbench_arch  OF multiple_observer_testbench   IS
     
   FOR OBS_1 : observer 
     use entity 
-        work.observer(Behavioural_2); 
+        work.observer(Behavioural); 
   FOR OBS_2 : observer 
     use entity 
-        work.observer(Behavioural_2); 
+        work.observer(Behavioural); 
   FOR OBS_3 : observer 
     use entity 
-        work.observer(Behavioural_2);  
+        work.observer(Behavioural);  
     
     
   COMPONENT signalgenerator
@@ -74,9 +74,9 @@ BEGIN
   
   SIG : signalgenerator PORT MAP (  clk => clk_tb, reset=>reset_tb, output=>phi_tb );  
   
-  OBS_1  :  observer GENERIC MAP(observernumber => 3) PORT MAP ( output=>add1,clk=>clk_tb,reset =>reset_tb,enable_in => enable_tb,invariance_tau => tau_tb,signal_phi=> phi_tb,enable_out=> en1) ; 
-  OBS_2  :  observer GENERIC MAP(observernumber => 3) PORT MAP ( output=>add2,clk=>clk_tb,reset =>reset_tb,enable_in => en1,invariance_tau => tau_tb,signal_phi=> phi_tb,enable_out=> en2) ; 
-  OBS_3  :  observer GENERIC MAP(observernumber => 3) PORT MAP ( output=>add3,clk=>clk_tb,reset =>reset_tb,enable_in => en2,invariance_tau => tau_tb,signal_phi=> phi_tb,enable_out=> next_obs_tb) ;
+  OBS_1  :  observer GENERIC MAP(observernumber => x"0003") PORT MAP ( output=>add1,clk=>clk_tb,reset =>reset_tb,enable_in => enable_tb,invariance_tau => tau_tb,signal_phi=> phi_tb,enable_out=> en1) ; 
+  OBS_2  :  observer GENERIC MAP(observernumber => x"0003") PORT MAP ( output=>add2,clk=>clk_tb,reset =>reset_tb,enable_in => en1,invariance_tau => tau_tb,signal_phi=> phi_tb,enable_out=> en2) ; 
+  OBS_3  :  observer GENERIC MAP(observernumber => x"0003") PORT MAP ( output=>add3,clk=>clk_tb,reset =>reset_tb,enable_in => en2,invariance_tau => tau_tb,signal_phi=> phi_tb,enable_out=> next_obs_tb) ;
     
     
    output_tb <= (add1  and add2 and add3) or '0'; 
