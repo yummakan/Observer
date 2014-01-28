@@ -16,7 +16,7 @@ begin --BEGIN ARCHITECTURE
   --parallel logic
   inc_tau <= unsigned(invariance_tau) +  to_unsigned(1,9) ;
 	
-  sync: process(clk)
+  sync: process(clk,reset)
     variable count_reset :std_logic := '0';
     variable cycle :unsigned(15 downto 0):=(others => '0');
     variable switch :std_logic :='0';
