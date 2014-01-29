@@ -15,7 +15,7 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
   SIGNAL output_tb   :  STD_LOGIC  ; 
   SIGNAL clk_tb      :  STD_LOGIC  ; 
   SIGNAL reset_tb    :  STD_LOGIC  ;
-  SIGNAL enable_tb  :  STD_LOGIC  ;
+  SIGNAL enable_tb   :  STD_LOGIC  ;
   SIGNAL tau_tb      :  std_logic_vector(7 downto 0);
   SIGNAL next_obs_tb :  STD_LOGIC  ;
   SIGNAL phi_tb      :  STD_LOGIC  ;
@@ -62,12 +62,12 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
 BEGIN
   OBS  : observer 
     PORT MAP ( 
-      output    =>  output_tb  ,
       clk       => clk_tb  ,
       reset     => reset_tb,
       enable_in => enable_tb,
       invariance_tau => tau_tb,
       signal_phi=> phi_tb,
+      output    =>  output_tb  ,
       enable_out=> next_obs_tb
       ) ; 
     
@@ -84,7 +84,7 @@ BEGIN
       begin
       --initialize all signals
       enable_tb <= '0';
-      reset_tb <= '1';
+      reset_tb <= '0';
       clk_tb <= '0';
       tau_tb<= std_logic_vector(to_unsigned(3,8));
       --begin process
@@ -99,10 +99,10 @@ BEGIN
       CYCLE(clk_tb);--9
       enable_tb <= '1';
       CYCLE(clk_tb);--10
-      CYCLE(clk_tb);--12
       
       assert(next_obs_tb = '1');
       
+      CYCLE(clk_tb);--12      
       CYCLE(clk_tb);--13
       CYCLE(clk_tb);--14
       CYCLE(clk_tb);--15

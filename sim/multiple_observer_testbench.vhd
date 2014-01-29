@@ -79,7 +79,7 @@ BEGIN
   OBS_3  :  observer GENERIC MAP(observernumber => x"0003") PORT MAP ( output=>add3,clk=>clk_tb,reset =>reset_tb,enable_in => en2,invariance_tau => tau_tb,signal_phi=> phi_tb,enable_out=> next_obs_tb) ;
     
     
-   output_tb <= (add1  and add2 and add3) or '0'; 
+   output_tb <= (add1  and add2 and add3); 
     
     
     -- Begin of testbench
@@ -87,7 +87,7 @@ BEGIN
       begin
       --initialize all signals
       enable_tb <= '0';
-      reset_tb <= '1';
+      reset_tb <= '0';
       clk_tb <= '0';
       tau_tb<= std_logic_vector(to_unsigned(3,8));
       --begin process

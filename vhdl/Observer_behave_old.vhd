@@ -5,7 +5,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 
 
-architecture Behavioural of observer is
+architecture Behavioural_old of observer is
 
 signal count,inc_tau				: unsigned(8 downto 0):= (others => '0');
 
