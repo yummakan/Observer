@@ -19,7 +19,9 @@ port (
 
 end entity;
 
-
+--------------------------------------------------------------------------
+------------------      ARCHITECTURE    ---------------------------------
+--------------------------------------------------------------------------
 architecture rtl of top is
 
 constant  tau_range	:integer := 10;	
@@ -85,7 +87,12 @@ signal add0	    :std_logic:='0';
 signal output_s	: std_logic	:='0';
 signal tau_s	: std_logic_vector(7 downto 0) := (others => '0');
 
+
+-------------------------------------------------------------------------------------
+----- BEGIN OF ARCHITECTURE   ------------------------------------------------------
+-------------------------------------------------------------------------------------
 begin
+  
   signalgenerator_top : component signalgenerator
     port map (
       output => phi_s,
@@ -93,50 +100,50 @@ begin
       clk => clk_g  
       );
 
-   PLL:  AltPLa
-    PORT MAP (areset => reset_s,inclk0 => CLOCK_50  ,c1 => clk_s,c0 => clk_g   ) ;
-	-- PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
+  PLL: component AltPLa --??: maybe reduce to only needed clocks
+    PORT MAP (areset => reset_s,inclk0 => CLOCK_50  ,c0 => clk_s ) ;
+  -- PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
+  
 -------------------------------------------------------------------------------
 -- <BEGIN_2> 
-OBS_0:  observer GENERIC MAP(observernumber => x"0001")
+  OBS_0:  observer GENERIC MAP(observernumber => x"0001")
     PORT MAP ( output=>add0,clk=>clk_s,reset =>reset_s, enable_in =>enable_s,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=> next_obs_s) ;
 
 -- <END_2>
 -------------------------------------------------------------------------------		
  
-		
-	
-	
-	--clk_s <= CLOCK_50;
-	--clk_g <= CLOCK_50;
-        reset_s <= not KEY(0);
-	--GPIO(0) <= clk_s; 	--clk
-	GPIO(0) <= reset_s;	--reset_key(0)
-	GPIO(1) <= enable_s;	--enable_start	
-	--GPIO(2) <= en1;		--obs0_enable
-	---GPIO(3) <= en2;		--obs1_enable
-        --GPIO(4) <= en3;		--obs2_enable
-        --GPIO(5) <= en4;		--obs3_enable
-	GPIO(6) <= next_obs_s;   --obs4_enable
-	GPIO(7) <= clk_g;
-	GPIO(8) <= phi_s;		--phi_signal
-	GPIO(9)<= clk_s;
-        GPIO(10) <= add0;		--add1
-	--GPIO(10) <= add(0);		--add1
-	--GPIO(11) <= add(1);		--add2
-	--GPIO(12) <= add(2);		--add3
-	--GPIO(13) <= add(3);		--add1
-	--GPIO(14) <= add(4);		--add2
-	GPIO(15)<= output_s;	--output
-	--GPIO(0) <= clk_s ;
-	--GPIO(0) <= clk_s;
-	
-	tau_s		<= std_logic_vector(to_unsigned(tau_range,8));
--------------------------------------------------------------------------------
+
+  -------------------------------------------------------------------------------
 -- <BEGIN_3> 
  output_s <=add0;
 -- <END_3> 
 -------------------------------------------------------------------------------
+
+  
+	
+  clk_g <= CLOCK_50;     
+  reset_s <= not KEY(0);
+  --GPIO(0) <= clk_s; 	
+  GPIO(0) <= reset_s;
+  GPIO(1) <= enable_s;	
+  --GPIO(2) <= en1;		
+  ---GPIO(3) <= en2;	
+  --GPIO(4) <= en3;		
+  --GPIO(5) <= en4;	
+  GPIO(6) <= next_obs_s;  
+  GPIO(7) <= clk_g;
+  GPIO(8) <= phi_s;	
+  GPIO(9)<= clk_s;
+  GPIO(10) <= add0;	
+  --GPIO(10) <= add(0);		
+  --GPIO(11) <= add(1);		
+  --GPIO(12) <= add(2);		
+  --GPIO(13) <= add(3);		
+  --GPIO(14) <= add(4);	
+  GPIO(15)<= output_s;	
+
+  tau_s		<= std_logic_vector(to_unsigned(tau_range,8));
+  
 
   
 
