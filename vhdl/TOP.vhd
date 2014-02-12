@@ -97,11 +97,11 @@ begin
     port map (
       output => phi_s,
       reset => reset_s,
-      clk => clk_g  
+      clk => clk_g 
       );
 
   PLL: component AltPLa --??: maybe reduce to only needed clocks
-    PORT MAP (areset => reset_s,inclk0 => CLOCK_50  ,c0 => clk_s ) ;
+    PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c0 => clk_g,c1 =>clk_s) ;
   -- PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
   
 -------------------------------------------------------------------------------
@@ -121,7 +121,8 @@ begin
 
   
 	
-  clk_g <= CLOCK_50;     
+  --clk_g <= CLOCK_50;
+ -- clk_s <= CLOCK_50;
   reset_s <= not KEY(0);
   --GPIO(0) <= clk_s; 	
   GPIO(0) <= reset_s;

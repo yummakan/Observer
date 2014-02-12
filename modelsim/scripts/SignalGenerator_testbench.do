@@ -9,7 +9,10 @@ vsim -msgmode both -displaymsgmode both -novopt work.$tb
 add wave inputclk
 add wave inputreset
 add wave -color "yellow" outputsignal
-#add wave /TestBench_Signalgenerator/OBS/cycle
+add wave /signalgenerator_top/generator_state
+add wave /signalgenerator_top/periodsize
+add wave /signalgenerator_top/cnt
+
 
 
 #profile on                  

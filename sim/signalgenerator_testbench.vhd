@@ -7,9 +7,9 @@ end entity;
 
 architecture testbench_architecture of signalgenerator_testbench is
 --signals
-signal inputclk :   std_logic ;
-signal inputreset:  std_logic ;
-signal outputsignal:std_logic ;
+signal inputclk :   std_logic := '0';
+signal inputreset:  std_logic := '0';
+signal outputsignal:std_logic := '0' ;
 --components
 component signalgenerator is 
 	port(
@@ -35,17 +35,26 @@ signalgenerator_top : component signalgenerator
 	
 
 stimulus: process is
+  variable counter : integer :=0;
 -- put all signals here to give them default values
   procedure initialize is 
     begin
-      inputclk <= '1';
-      inputreset <= '0';
-      outputsignal <= '0';
-  end procedure initialize;
+      
+  end  initialize;
 begin
-  initialize;
-  loop
-    inputclk <= not inputclk after 50 ns;
+  counter := 1000;
+  inputclk <= '1';
+  inputreset <= '0';
+  --outputsignal <= '0';
+  while (counter > 0) loop
+    inputclk <= not inputclk;
+    counter := counter  - 1;
+    if(counter > 450 and counter < 500)then
+      inputreset <= '1';
+    else
+       inputreset <= '0';
+    end if;
+    wait for 50ns;
   end loop;
   wait;
 end process stimulus;  

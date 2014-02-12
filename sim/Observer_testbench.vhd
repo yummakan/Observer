@@ -23,10 +23,10 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
   procedure CYCLE(
         signal clk : out std_logic) is
     begin
-        wait for CLOCK_PERIOD;
         clk <= '1';
         wait for CLOCK_PERIOD;
         clk <= '0';
+        wait for CLOCK_PERIOD;
   end procedure;
   
   

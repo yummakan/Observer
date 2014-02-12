@@ -17,9 +17,9 @@
 
 ## VENDOR  "Altera"
 ## PROGRAM "Quartus II"
-## VERSION "Version 12.1 Build 177 11/07/2012 SJ Web Edition"
+## VERSION "Version 12.1 Build 177 11/07/2012 SJ Full Version"
 
-## DATE    "Thu Jan 30 23:19:16 2014"
+## DATE    "Wed Feb 12 16:23:29 2014"
 
 ##
 ## DEVICE  "EP4CE115F29C7"

@@ -16,7 +16,7 @@ type GENERATOR_STATE_TYPE is 	(GENERATOR_STATE_SECOND_PERIOD,
  signal generator_state, generator_state_next : GENERATOR_STATE_TYPE  := GENERATOR_STATE_FIRST_PERIOD;
  signal periodsize , periodsize_next: integer   := 1; -- range 0 to 8 ;
  signal cnt	, cnt_next	    : integer   := 1; --range 0 to 8;
- signal output_next	            : std_logic := '0';
+ signal output_next	            : std_logic := '1';
 
 
 begin --BEGIN ARCHITECTURE
@@ -33,10 +33,14 @@ begin
     when GENERATOR_STATE_FIRST_PERIOD =>
       if(cnt = 1) then
         generator_state_next <= GENERATOR_STATE_SECOND_PERIOD;
+      else
+        generator_state_next <= generator_state;
       end if;
     when GENERATOR_STATE_SECOND_PERIOD =>
       if(cnt = 1) then
         generator_state_next <= GENERATOR_STATE_FIRST_PERIOD;
+      else
+        generator_state_next <= generator_state;
       end if;
     when GENERATOR_STATE_RESET =>
       generator_state_next <= GENERATOR_STATE_FIRST_PERIOD;  

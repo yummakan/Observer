@@ -103,7 +103,7 @@ output_s <= (add1  and add2 and add3);
       enable_s <= '0';
       reset_s <= '0';
       clk_s <= '0';
-      tau_s<= std_logic_vector(to_unsigned(3,8));
+      tau_s<= std_logic_vector(to_unsigned(2,8));
       --begin process
       CYCLE(clk_s);--1
       CYCLE(clk_s);--2
