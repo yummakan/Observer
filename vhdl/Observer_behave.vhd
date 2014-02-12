@@ -25,7 +25,7 @@ begin --changes cycle_next, direction, changeDirection
          direction_next <= '1';
          cycle_next <= cycle + 1;
       else
-         direction_next <= '1';
+         direction_next <= '0';
          cycle_next <= cycle - 1;
       end if;
     elsif(direction = '1') then
@@ -33,7 +33,7 @@ begin --changes cycle_next, direction, changeDirection
          direction_next <= '0';
          cycle_next <= cycle - 1;
       else
-         direction_next <= '0';
+         direction_next <= '1';
          cycle_next <= cycle + 1;
       end if;
     end if;
@@ -54,15 +54,19 @@ begin --changes  count_next,output_next
         output<= '0';
       elsif((count+1) <= inc_tau) then
         count_next <= count + 1; --every clock cycle
+        output <= '0';
       else
+        count_next<=count;
         output<= '1';
       end if; 
     else
       if((count+1)<= inc_tau) then
         --this elsif branch only reached if m > 1 (multiple observer)
         count_next <= count + 1; --every clock cycle
+        output <= '0';
       else
         --this elsif branch only reached if m > 1 (multiple observer)
+        count_next<=count;
         output<= '1';
       end if;
     end if;
