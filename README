@@ -1,41 +1,10 @@
-How to initialize the Quartus project
-=====================================
 
-Follow this procedure whenever
-  - you first open the project
-  - colleagues changed something in QSYS
-
- 1. Make sure you committed everything to git.
  
- 2. Clean the repository of all unknown and ignored files. This is necessary to
-    make sure Quartus uses ONLY things that are checked in and not something
-    left over from earlier.
  
-      $ git clean -f -d -x
+ Observer observes signal from signalgenerator (signal phi)
  
- 3. Start Quartus.
-
-      $ quartus quartus/DE2_115_v3.qpf
-
- 4. Start Qsys: [Tools] -> [Qsys]. Open qsys_control_system.qsys.
-
- 6. Switch to the [Generation] tab. Click [Generate].
-
- 7. In the [Tasks] window, select "Flow: Compilation". Double-click on
-    [Analysis & Synthesis].
-
-
-Troubleshooting
-===============
---> QSYS won't open up? Try running
-      .../quartus/sopc_builder/bin/qsys-edit
-    standalone. If you get java library errors, point
-      .../quartus/linux/jre
-    to your system's native JRE.
-
---> NIOS generation "fails" but looks successful?
-    http://www.altera.com/support/kdb/solutions/rd05112011_512.html
-
---> Eclipse won't start? Make sure the JRE in .../quartus/linux/jre is a 32-bit
-    JRE.
-
+ and checks for invariance of the signal phi during a pariod of time.
+ 
+ 
+ 
+ 
