@@ -13,7 +13,8 @@ type GENERATOR_STATE_TYPE is 	(GENERATOR_STATE_SECOND_PERIOD,
                                  );
                                   
 
- signal generator_state, generator_state_next : GENERATOR_STATE_TYPE  := GENERATOR_STATE_FIRST_PERIOD;
+ signal generator_state             : GENERATOR_STATE_TYPE  := GENERATOR_STATE_RESET;
+ signal generator_state_next        : GENERATOR_STATE_TYPE  := GENERATOR_STATE_FIRST_PERIOD;
  signal periodsize , periodsize_next: integer   := 1; -- range 0 to 8 ;
  signal cnt	, cnt_next	    : integer   := 1; --range 0 to 8;
  signal output_next	            : std_logic := '1';

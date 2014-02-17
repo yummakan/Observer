@@ -13,9 +13,9 @@ signal outputsignal:std_logic := '0' ;
 --components
 component signalgenerator is 
 	port(
-		clk		  :in  std_logic							:= 'X';
+		clk		  :in  std_logic:= 'X';
 		reset 	:in 	std_logic       := 'X'; 	-- clk
-		output :out	std_logic 				           -- export
+		output :out	std_logic 		        -- export
 	);
 end component signalgenerator;
 
@@ -37,10 +37,6 @@ signalgenerator_top : component signalgenerator
 stimulus: process is
   variable counter : integer :=0;
 -- put all signals here to give them default values
-  procedure initialize is 
-    begin
-      
-  end  initialize;
 begin
   counter := 1000;
   inputclk <= '1';

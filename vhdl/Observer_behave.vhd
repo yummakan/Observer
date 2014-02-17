@@ -52,33 +52,33 @@ begin --changes  count_next,output_next
     if((cycle = observernumber)  or (cycle = 0)) then -- m cycles passed    
       if(signal_phi = '0') then   -- if w(phi) = 0)
         count_next   <= "000000001";
-		  count_p_next <= "000000010";
+        count_p_next <= "000000010";
         output<= '0';
       elsif(count_p <= inc_tau) then
         count_next   <= count   + 1; --every clock cycle
-		  count_p_next <= count_p + 1 ;
+        count_p_next <= count_p + 1 ;
         output <= '0';
       else
         count_next   <= count;
-		  count_p_next <= count_p;
+        count_p_next <= count_p;
         output       <= '1';
       end if; 
     else
       if(count_p <= inc_tau) then
         --this elsif branch only reached if m > 1 (multiple observer)
         count_next   <= count + 1; --every clock cycle
-		  count_p_next <= count_p + 1 ;
+        count_p_next <= count_p + 1 ;
         output       <= '0';
       else
         --this elsif branch only reached if m > 1 (multiple observer)
         count_next   <= count;
-		  count_p_next <= count_p;
+        count_p_next <= count_p;
         output       <= '1';
       end if;
     end if;
   else 
     count_next   <= count;
-	 count_p_next <= count_p;
+    count_p_next <= count_p;
     output       <= '0';
   end if;
 end process comb_logic;
@@ -94,13 +94,13 @@ end process comb_logic;
         cycle           <= cycle_next;
         direction       <= direction_next;
         count           <= count_next;
-		  count_p			<= count_p_next;
+        count_p		<= count_p_next;
         enable_out      <= '1';
       else
         enable_out      <=  '0';
         cycle           <= x"0000";
         count           <= "000000001";
-		  count_p			<= "000000010";
+        count_p		<= "000000010";
         direction       <='1';
       end if;--if(enable_in)and (reset=0)
     end if;--if(clk'event)  

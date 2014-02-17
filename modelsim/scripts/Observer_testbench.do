@@ -15,17 +15,17 @@ add wave /observer_testbench/OBS/cycle
 add wave /observer_testbench/OBS/count
 add wave -color "light blue" output_s
 
-profile on                  
-set Before [clock seconds]  
+#profile on                  
+#set Before [clock seconds]  
 
 run 2000ms
 wave zoom full
 
-set After [clock seconds]
-set total [expr $After - $Before]
-echo "Total Time " $total " Seconds"
+#set After [clock seconds]
+#set total [expr $After - $Before]
+#echo "Total Time " $total " Seconds"
 #view_profile_ranked     
-profile report -ranked -file profile.txt 
+#profile report -ranked -file profile.txt 
 
 
 
