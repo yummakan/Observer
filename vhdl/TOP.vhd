@@ -26,17 +26,16 @@ architecture rtl of top is
 
 constant  tau_range	:integer := 10;	
 
-component AltPLa is
+component Altpla is
 	PORT
 	(
 		areset		: IN STD_LOGIC  := '0';
 		inclk0		: IN STD_LOGIC  := '0';
-		c0		    : OUT STD_LOGIC ; -- 100 Mhz
-		c1		    : OUT STD_LOGIC ; -- 200Mhz
-		c2		    : OUT STD_LOGIC ; -- 400 Mhz
-		c3		    : OUT STD_LOGIC ; -- 600 Mhz
-                c4		    : OUT STD_LOGIC ; -- 1200 Mhz
-		locked		: OUT STD_LOGIC 
+		c0		    : OUT STD_LOGIC ; -- 50Mhz
+		c1		    : OUT STD_LOGIC ; -- 100Mhz
+		c2		    : OUT STD_LOGIC ; -- 120 Mhz
+		c3		    : OUT STD_LOGIC ; -- 150 Mhz
+      c4		    : OUT STD_LOGIC  --  200 Mhz
 	);
 end component;  
   
@@ -101,8 +100,8 @@ begin
       );
 
   PLL: component AltPLa --??: maybe reduce to only needed clocks
-    PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c0 => clk_g,c1 =>clk_s) ;
-  -- PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
+    PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c1 => clk_g,c2 =>clk_s) ;
+  --PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
   
 -------------------------------------------------------------------------------
 -- <BEGIN_2> 
@@ -121,8 +120,8 @@ begin
 
   
 	
-  --clk_g <= CLOCK_50;
- -- clk_s <= CLOCK_50;
+ --clk_g <= CLOCK_50;
+ --clk_s <= CLOCK_50;
   reset_s <= not KEY(0);
   --GPIO(0) <= clk_s; 	
   GPIO(0) <= reset_s;
