@@ -17,6 +17,9 @@
 **/*.pin
 **/*.sof
 **/*.qws
+**/*.txt~
+
+documentation/measurement/*.txt~
 quartus/db/
 quartus/output_files/
 quartus/qsys_control_system/

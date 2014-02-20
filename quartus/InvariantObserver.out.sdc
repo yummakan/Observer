@@ -19,7 +19,7 @@
 ## PROGRAM "Quartus II"
 ## VERSION "Version 12.1 Build 177 11/07/2012 SJ Full Version"
 
-## DATE    "Thu Feb 20 22:21:36 2014"
+## DATE    "Fri Feb 21 00:40:11 2014"
 
 ##
 ## DEVICE  "EP4CE115F29C7"
@@ -45,8 +45,7 @@ create_clock -name {CLOCK_50} -period 20.000 -waveform { 0.000 10.000 } [get_por
 # Create Generated Clock
 #**************************************************************
 
-create_generated_clock -name {PLL|altpll_component|auto_generated|pll1|clk[1]} -source [get_pins {PLL|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50.000 -multiply_by 2 -master_clock {CLOCK_50} [get_pins {PLL|altpll_component|auto_generated|pll1|clk[1]}] 
-create_generated_clock -name {PLL|altpll_component|auto_generated|pll1|clk[4]} -source [get_pins {PLL|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50.000 -multiply_by 4 -master_clock {CLOCK_50} [get_pins {PLL|altpll_component|auto_generated|pll1|clk[4]}] 
+create_generated_clock -name {PLL|altpll_component|auto_generated|pll1|clk[3]} -source [get_pins {PLL|altpll_component|auto_generated|pll1|inclk[0]}] -duty_cycle 50.000 -multiply_by 12 -master_clock {CLOCK_50} [get_pins {PLL|altpll_component|auto_generated|pll1|clk[3]}] 
 
 
 #**************************************************************
@@ -59,18 +58,10 @@ create_generated_clock -name {PLL|altpll_component|auto_generated|pll1|clk[4]} -
 # Set Clock Uncertainty
 #**************************************************************
 
-set_clock_uncertainty -rise_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}] -rise_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}]  0.020  
-set_clock_uncertainty -rise_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}] -fall_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}]  0.020  
-set_clock_uncertainty -fall_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}] -rise_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}]  0.020  
-set_clock_uncertainty -fall_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}] -fall_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}]  0.020  
-set_clock_uncertainty -rise_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}] -rise_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}]  0.020  
-set_clock_uncertainty -rise_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}] -fall_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}]  0.020  
-set_clock_uncertainty -rise_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}] -rise_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}]  0.020  
-set_clock_uncertainty -rise_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}] -fall_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}]  0.020  
-set_clock_uncertainty -fall_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}] -rise_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}]  0.020  
-set_clock_uncertainty -fall_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}] -fall_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[4]}]  0.020  
-set_clock_uncertainty -fall_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}] -rise_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}]  0.020  
-set_clock_uncertainty -fall_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}] -fall_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[1]}]  0.020  
+set_clock_uncertainty -rise_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[3]}] -rise_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[3]}]  0.020  
+set_clock_uncertainty -rise_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[3]}] -fall_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[3]}]  0.020  
+set_clock_uncertainty -fall_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[3]}] -rise_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[3]}]  0.020  
+set_clock_uncertainty -fall_from [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[3]}] -fall_to [get_clocks {PLL|altpll_component|auto_generated|pll1|clk[3]}]  0.020  
 
 
 #**************************************************************
