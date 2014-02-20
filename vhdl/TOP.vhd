@@ -39,6 +39,21 @@ component Altpla is
 	);
 end component;  
   
+  
+--component Altplb is
+--	PORT
+--	(
+--		areset		: IN STD_LOGIC  := '0';
+--		inclk0		: IN STD_LOGIC  := '0';
+--		c0		    : OUT STD_LOGIC ; -- 100Mhz
+--		c1		    : OUT STD_LOGIC ; -- 200Mhz
+--		c2		    : OUT STD_LOGIC ; -- 400 Mhz
+--		c3		    : OUT STD_LOGIC ; -- 600 Mhz
+ --   c4		    : OUT STD_LOGIC ; --  1200 Mhz
+--		locked		: OUT STD_LOGIC 
+--	);
+--end component; 
+  
 component signalgenerator is 
   port(
    clk		:in  std_logic        	:= 'X';
