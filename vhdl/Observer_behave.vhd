@@ -20,7 +20,7 @@ begin --BEGIN ARCHITECTURE
     --reset = '0' and enable_in = '1'
 
 -- changes cycle up from 0 to observernumber and down back to 0
-comb_cycle: process(cycle,reset,enable_in)
+comb_cycle: process(cycle,enable_logic)
 begin --changes cycle_next, direction, changeDirection
   if(enable_logic = '1')then
     if(direction = '0') then
@@ -48,7 +48,7 @@ end process comb_cycle;
 
 
  -- main logic of the observer
-comb_logic: process(count,cycle,reset,enable_in)
+comb_logic: process(count,cycle,enable_logic)
 begin --changes  count_next,output_next
   if(enable_logic = '1')then 
     if((cycle = observernumber)  or (cycle = 0)) then -- m cycles passed    
@@ -89,7 +89,7 @@ end process comb_logic;
 
 
   --the synchronisation logic
-  sync: process(clk,reset,enable_in)
+  sync: process(clk,enable_logic)
   begin
     if(clk'event and clk = '0')then
       enable_logic <= enable_logic_next;
