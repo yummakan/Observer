@@ -7,22 +7,20 @@ use IEEE.NUMERIC_STD.ALL;
 
 architecture Behavioural of observer is
 
-signal count,count_next,inc_tau	      : unsigned(8 downto 0):= "000000001";
-signal count_p,count_p_next           : unsigned(8 downto 0):= "000000010";
+signal count,count_next,inc_tau	     : unsigned(8 downto 0):= "000000001";
+signal count_p,count_p_next	        : unsigned(8 downto 0):= "000000010";
 signal cycle,cycle_next               : unsigned(15 downto 0) := x"0000";
-signal direction,direction_next       : std_logic := '1';
-signal enable_logic,enable_logic_next : std_logic := '0';  -- driven from enable_s and reset
+signal direction,direction_next       : std_logic := '1';      
 begin --BEGIN ARCHITECTURE
 
   --parallel logic
   inc_tau <= unsigned(invariance_tau) + to_unsigned(1,9) ;
-  enable_logic_next <= not reset and enable_in;
-    --reset = '0' and enable_in = '1'
+
 
 -- changes cycle up from 0 to observernumber and down back to 0
 comb_cycle: process(cycle,reset,enable_in)
 begin --changes cycle_next, direction, changeDirection
-  if(enable_logic = '1')then
+  if(reset = '0' and enable_in = '1')then
     if(direction = '0') then
       if(cycle = 0)then
          direction_next <= '1';
@@ -50,7 +48,7 @@ end process comb_cycle;
  -- main logic of the observer
 comb_logic: process(count,cycle,reset,enable_in)
 begin --changes  count_next,output_next
-  if(enable_logic = '1')then 
+  if(reset = '0' and enable_in = '1')then 
     if((cycle = observernumber)  or (cycle = 0)) then -- m cycles passed    
       if(signal_phi = '0') then   -- if w(phi) = 0)
         count_next   <= "000000001";
@@ -92,8 +90,7 @@ end process comb_logic;
   sync: process(clk,reset,enable_in)
   begin
     if(clk'event and clk = '0')then
-      enable_logic <= enable_logic_next;
-      if(enable_logic = '1') then
+      if((enable_in='1') and (reset = '0')) then
         cycle           <= cycle_next;
         direction       <= direction_next;
         count           <= count_next;
