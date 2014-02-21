@@ -11,17 +11,17 @@ signal count,count_next,inc_tau	     : unsigned(8 downto 0):= "000000001";
 signal count_p,count_p_next	        : unsigned(8 downto 0):= "000000010";
 signal cycle,cycle_next               : unsigned(15 downto 0) := x"0000";
 signal direction,direction_next       : std_logic := '1';      
-signal enable_logic,enable_logic_next : std_logic := '1';
+signal enable_logic 				  : std_logic := '0';
 begin --BEGIN ARCHITECTURE
 
   --parallel logic
   inc_tau <= unsigned(invariance_tau) + to_unsigned(1,9) ;
-  enable_logic_next <= enable_in and not reset;
+  enable_logic <= enable_in and not reset;
 
 -- changes cycle up from 0 to observernumber and down back to 0
 comb_cycle: process(cycle,reset,enable_logic)
 begin --changes cycle_next, direction, changeDirection
- 
+  
   if(direction = '0' and enable_logic = '1') then
     if(cycle = 0)then
       direction_next <= '1';
@@ -88,7 +88,7 @@ end process comb_logic;
   sync: process(clk,enable_logic)
   begin
     if(clk'event and clk = '0')then
-      enable_logic <= enable_logic_next;
+     -- enable_logic <= enable_logic_next;
       if(enable_logic = '1') then
         cycle           <= cycle_next;
         direction       <= direction_next;
@@ -96,11 +96,11 @@ end process comb_logic;
         count_p		<= count_p_next;
         enable_out      <= '1';
       else
-        enable_out      <=  '0';
         cycle           <= x"0000";
+		direction       <='1';
         count           <= "000000001";
         count_p		<= "000000010";
-        direction       <='1';
+	enable_out      <=  '0';
       end if;--if(enable_in)and (reset=0)
     end if;--if(clk'event)  
   end process sync;

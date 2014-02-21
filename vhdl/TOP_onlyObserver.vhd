@@ -24,7 +24,7 @@ end entity;
 --------------------------------------------------------------------------
 architecture rtl of top_onlyObserver is
 
-constant  tau_range	:integer := 10;	
+constant  tau_range	:integer := 1;	
 
 --component Altpla is
 --  PORT
@@ -102,7 +102,7 @@ begin
   
   
   PLL: component Altplb --??: maybe reduce to only needed clocks
-    PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c3 => clk) ;
+    PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c0 => clk) ;
   
 -------------------------------------------------------------------------------
 -- <BEGIN_2> 

@@ -62,6 +62,10 @@ component signalgenerator is
 );
 end component signalgenerator;
 
+FOR signalgenerator_top : signalgenerator 
+    use entity 
+					work.signalgenerator(Behavioural);
+--        work.signalgenerator(simple);
 
 component observer 
     generic ( 
@@ -115,7 +119,7 @@ begin
       );
 
   PLL: component AltPLa --??: maybe reduce to only needed clocks
-    PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c1 => clk_g,c4 =>clk_s) ;
+    PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c0 => clk_g,c1 =>clk_s) ;
   --PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
   
 -------------------------------------------------------------------------------

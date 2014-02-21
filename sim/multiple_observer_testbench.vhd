@@ -12,7 +12,7 @@ END ;
 architecture testbench_arch  OF multiple_observer_testbench   IS
   
   constant CLOCK_PERIOD :time := 20ns;
-  constant TAU          :integer := 10 ;
+  constant TAU          :integer := 1 ;
 
   procedure CYCLE(
     signal clk : out std_logic) is
@@ -31,6 +31,9 @@ architecture testbench_arch  OF multiple_observer_testbench   IS
       );
   end component;
 
+	FOR SIG : signalgenerator 
+    use entity 
+        work.signalgenerator(simple);
 
  component observer 
     generic ( 
@@ -105,9 +108,11 @@ output_s <= (add1  and add2 and add3);
     
     -- Begin of testbench
 stimulus:process
-  variable counter : integer := 0;
-  variable limit   : integer := 2000;
-  variable phi_cnt : integer := 1;
+   variable counter : integer := 0;
+   variable limit   : integer := 2000; 
+   variable x	     :integer := 1;
+   variable switch_up:std_logic:='0';
+   variable phi_cnt : integer := 1;
 begin
   --initialize all signals
 

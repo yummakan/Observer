@@ -11,7 +11,7 @@ END ;
 ARCHITECTURE testbench_arch  OF Observer_testbench   IS
   
   constant CLOCK_PERIOD :time    := 20ns;
-  constant TAU          :integer := 3 ;
+  constant TAU          :integer := 10 ;
   
   SIGNAL output_s   :  STD_LOGIC := '0'; 
   SIGNAL clk_s      :  STD_LOGIC := '0'; 
@@ -59,6 +59,10 @@ ARCHITECTURE testbench_arch  OF Observer_testbench   IS
       output		:out  std_logic
       );
   END COMPONENT;
+
+	FOR SIG : signalgenerator 
+    use entity 
+        work.signalgenerator(simple);
   
 BEGIN
   OBS  : observer 
@@ -78,18 +82,22 @@ BEGIN
       clk => clk_s,
       reset=>reset_s,
       output=>phi_s
-    );  
-    
+    );      
+
+
     -- Begin of testbench
   stimulus: process
     variable counter : integer := 0;
     variable limit   : integer := 2000; 
+    variable x	     :integer := 1;
+	variable switch_up:std_logic:='0';
       begin
       --initialize all signals
       enable_s <= '0';
       reset_s <= '0';
       clk_s <= '0';
       tau_s<= std_logic_vector(to_unsigned(TAU,8));
+      --phi_s <= '1';
 
        --begin process
       CYCLE(clk_s);--1
@@ -107,13 +115,22 @@ BEGIN
       
       while (counter < limit) loop
         CYCLE(clk_s);
-        counter := counter  + 1;
+		--if(phi_s = '0')then
+		--	switch_up := '0';
+		--elsif(switch_up = '0')then
+		--	x :=x+2;
+		--	switch_up := '1';			
+		--end if;
+		---if((counter mod x) = 0)then
+		--	phi_s <= not phi_s;
+		--end if;
+
+     	  counter := counter  + 1;
         if(counter > 450 and counter < 500)then
           reset_s <= '1';
         else
           reset_s <= '0';
         end if;
-       
       end loop;
       wait;      
   end process stimulus;

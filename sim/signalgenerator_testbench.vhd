@@ -19,9 +19,12 @@ component signalgenerator is
 	);
 end component signalgenerator;
 
+ --FOR signalgenerator_top : signalgenerator 
+ --   use entity 
+ --       work.signalgenerator(Behavioural);
  FOR signalgenerator_top : signalgenerator 
     use entity 
-        work.signalgenerator(Behavioural);
+        work.signalgenerator(simple);
 
 begin --begin ARCHITECTURE
   
