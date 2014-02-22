@@ -11,6 +11,7 @@ add wave reset_s
 add wave enable_s
 add wave next_obs_s
 add wave -color "yellow" phi_s
+add wave -color "grey" /observer_testbench/OBS/enable_logic
 add wave /observer_testbench/OBS/cycle
 add wave /observer_testbench/OBS/count
 add wave /observer_testbench/OBS/count_p
