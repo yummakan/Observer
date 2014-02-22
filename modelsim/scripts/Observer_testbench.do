@@ -5,7 +5,7 @@ project compileoutofdate
 
 vsim -msgmode both -displaymsgmode both -novopt work.$tb
 
-add wave tau_s
+add wave -hex tau_s
 add wave clk_s
 add wave reset_s
 add wave enable_s

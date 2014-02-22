@@ -27,16 +27,15 @@ architecture rtl of top is
 constant  tau_range	:integer := 10;	
 
 component Altpla is
-	PORT
-	(
-		areset		: IN STD_LOGIC  := '0';
-		inclk0		: IN STD_LOGIC  := '0';
-		c0		    : OUT STD_LOGIC ; -- 50Mhz
-		c1		    : OUT STD_LOGIC ; -- 100Mhz
-		c2		    : OUT STD_LOGIC ; -- 120 Mhz
-		c3		    : OUT STD_LOGIC ; -- 150 Mhz
-      c4		    : OUT STD_LOGIC  --  200 Mhz
-	);
+  PORT(
+    areset	    : IN STD_LOGIC  := '0';
+    inclk0	    : IN STD_LOGIC  := '0';
+    c0		    : OUT STD_LOGIC ; -- 50Mhz
+    c1		    : OUT STD_LOGIC ; -- 100Mhz
+    c2		    : OUT STD_LOGIC ; -- 120 Mhz
+    c3		    : OUT STD_LOGIC ; -- 150 Mhz
+    c4		    : OUT STD_LOGIC  --  200 Mhz
+  );
 end component;  
   
   
@@ -115,7 +114,7 @@ begin
       );
 
   PLL: component AltPLa --??: maybe reduce to only needed clocks
-    PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c1 => clk_g,c4 =>clk_s) ;
+    PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c0 => clk_g,c1 =>clk_s) ;
   --PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
   
 -------------------------------------------------------------------------------
