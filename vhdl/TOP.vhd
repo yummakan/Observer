@@ -24,7 +24,7 @@ end entity;
 --------------------------------------------------------------------------
 architecture rtl of top is
 
-constant  tau_range	:integer := 10;	
+constant  tau_range	:integer := 100;	
 
 component Altpla is
   PORT(
@@ -114,8 +114,8 @@ begin
       );
 
   PLL: component AltPLa --??: maybe reduce to only needed clocks
-    PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c0 => clk_g,c1 =>clk_s) ;
-  --PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
+  --PORT MAP (areset => reset_s,inclk0 => CLOCK_50 ,c0 => clk_g,c1 =>clk_s) ;
+  PORT MAP (areset => reset_s,inclk0 => CLOCK_50    ) ;
   
 -------------------------------------------------------------------------------
 -- <BEGIN_2> 
@@ -134,8 +134,8 @@ begin
 
   
 	
- --clk_g <= CLOCK_50;
- --clk_s <= CLOCK_50;
+ clk_g <= CLOCK_50;
+ clk_s <= CLOCK_50;
   reset_s <= not KEY(0);
   --GPIO(0) <= clk_s; 	
   GPIO(0) <= reset_s;

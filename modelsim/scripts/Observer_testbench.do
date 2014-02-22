@@ -13,6 +13,7 @@ add wave next_obs_s
 add wave -color "yellow" phi_s
 add wave /observer_testbench/OBS/cycle
 add wave /observer_testbench/OBS/count
+add wave /observer_testbench/OBS/count_p
 add wave -color "light blue" output_s
 
 #profile on                  
