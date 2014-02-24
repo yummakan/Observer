@@ -12,7 +12,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use IEEE.std_logic_misc.all;
 
-entity top is
+entity top_5Obs is
 
 port (
    CLOCK_50                            	:in	std_logic;
@@ -24,7 +24,7 @@ end entity;
 --------------------------------------------------------------------------
 ------------------      ARCHITECTURE    ---------------------------------
 --------------------------------------------------------------------------
-architecture rtl of top is
+architecture rtl of top_5Obs is
 
 constant  tau_range	:integer := 1;	
 

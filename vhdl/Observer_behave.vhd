@@ -8,10 +8,14 @@ use IEEE.NUMERIC_STD.ALL;
 architecture Behavioural of observer is
 
 signal inc_tau	     								 : unsigned(8 downto 0):= "000000000";
-signal count,count_next       	     : unsigned(8 downto 0):= "000000001";
-signal count_p,count_p_next	         : unsigned(8 downto 0):= "000000010";
+signal count,count_next       	     : unsigned(15 downto 0):= x"0001";
+signal count_p,count_p_next	         : unsigned(15 downto 0):= x"0002";
+--signal count,count_next       	     : unsigned(15 downto 0):= observernumber;
+--signal count_p,count_p_next	         : unsigned(15 downto 0):= observernumber+1;
 signal cycle,cycle_next              : unsigned(15 downto 0) := x"0000";
-signal direction,direction_next      : std_logic := '1';      
+--signal cycle,cycle_next              : unsigned(15 downto 0) := observernumber+observernumber;
+--signal direction,direction_next      : std_logic := '0';  
+signal direction,direction_next      : std_logic := '1';          
 signal enable_logic                  : std_logic := '0';
 signal output_next									 : std_logic := '0';				
 begin --BEGIN ARCHITECTURE
@@ -21,7 +25,7 @@ begin --BEGIN ARCHITECTURE
   enable_logic <= enable_in and not reset;
 
 -- changes cycle up from 0 to observernumber and down back to 0
-comb_cycle: process(cycle,enable_logic)
+comb_cycle: process(cycle,direction,enable_logic)
 begin --changes cycle_next, direction, changeDirection
   if(direction = '0' and enable_logic = '1') then
     if(cycle = 0)then
@@ -47,12 +51,14 @@ end process comb_cycle;
 
 
  -- main logic of the observer
-comb_logic: process(count,count_p,cycle,enable_logic)
+comb_logic: process(inc_tau,count,count_p,cycle,signal_phi,enable_logic)
 begin --changes  count_next,output_next
   if ( (cycle = observernumber  or cycle = 0) and enable_logic = '1') then -- m cycles passed    
     if(signal_phi = '0') then   -- if w(phi) = 0)
-      count_next   <= "000000001";
-      count_p_next <= "000000010";
+      --count_next   <= "000000001";
+      --count_p_next <= "000000010";
+			count_next   <= x"0001";
+      count_p_next <= x"0002";
       output_next  <= '0';
     elsif(count_p <= inc_tau) then
       count_next   <= count   + 1; --every clock cycle
@@ -98,10 +104,14 @@ end process comb_logic;
       else
         cycle           <= x"0000";
 				direction       <='1';
-        count           <= "000000001";
-        count_p		<= "000000010";
+			  --cycle           <= observernumber+observernumber;
+				--direction       <='0';
+        count   <= x"0001";
+        count_p <= x"0002";
+				--count     <= observernumber;
+        --count_p		<= observernumber+1;
 				output    <= '0';
-				enable_out      <=  '0';
+				enable_out <='0';
       end if;--if(enable_in)and (reset=0)
     end if;--if(clk'event)  
   end process sync;

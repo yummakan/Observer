@@ -11,7 +11,7 @@ END ;
 ARCHITECTURE testbench_arch  OF Observer_testbench   IS
   
   constant CLOCK_PERIOD :time    := 20ns;
-  constant TAU          :integer := 10 ;
+  constant TAU          :integer := 1 ;
   
   SIGNAL output_s   :  STD_LOGIC := '0'; 
   SIGNAL clk_s      :  STD_LOGIC := '0'; 

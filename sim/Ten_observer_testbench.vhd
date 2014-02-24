@@ -4,12 +4,13 @@ LIBRARY ieee  ;
 LIBRARY std  ; 
 USE ieee.std_logic_1164.all  ; 
 USE ieee.NUMERIC_STD.all  ; 
+use IEEE.std_logic_misc.all;
 
-ENTITY multiple_observer_testbench  IS 
+ENTITY ten_observer_testbench  IS 
 END ; 
 
 
-architecture testbench_arch  OF multiple_observer_testbench   IS
+architecture testbench_arch  OF ten_observer_testbench   IS
   
   constant CLOCK_PERIOD :time := 20ns;
   constant TAU          :integer := 1 ;
@@ -50,15 +51,26 @@ architecture testbench_arch  OF multiple_observer_testbench   IS
 
 -------------------------------------------------------------------------------
 --  <BEGIN_0>
-  for OBS_1 : observer 
-    use entity 
-        work.observer(Behavioural); 
-  for OBS_2 : observer 
-    use entity 
-        work.observer(Behavioural); 
-  for OBS_3 : observer 
-    use entity 
-        work.observer(Behavioural);  
+ FOR OBS_0 : observer 
+  use entity  work.observer(Behavioural);
+FOR OBS_1 : observer 
+  use entity  work.observer(Behavioural);
+FOR OBS_2 : observer 
+  use entity  work.observer(Behavioural);
+FOR OBS_3 : observer 
+  use entity  work.observer(Behavioural);
+FOR OBS_4 : observer 
+  use entity  work.observer(Behavioural);
+FOR OBS_5 : observer 
+  use entity  work.observer(Behavioural);
+FOR OBS_6 : observer 
+  use entity  work.observer(Behavioural);
+FOR OBS_7 : observer 
+  use entity  work.observer(Behavioural);
+FOR OBS_8 : observer 
+  use entity  work.observer(Behavioural);
+FOR OBS_9 : observer 
+  use entity  work.observer(Behavioural);
 --  <END_0>
 -------------------------------------------------------------------------------
 
@@ -72,8 +84,16 @@ signal next_obs_s :  STD_LOGIC  := '0';
 signal phi_s      :  STD_LOGIC := '0';
 -------------------------------------------------------------------------------
 -- <BEGIN_1> 
-signal en1,en2    :   STD_LOGIC :='0';
-signal add1,add2,add3:STD_LOGIC :='0';
+signal add: std_logic_vector(9 downto 0):=(others=>'0');
+signal en1	    :std_logic:='0';
+signal en2	    :std_logic:='0';
+signal en3	    :std_logic:='0';
+signal en4	    :std_logic:='0';
+signal en5	    :std_logic:='0';
+signal en6	    :std_logic:='0';
+signal en7	    :std_logic:='0';
+signal en8	    :std_logic:='0';
+signal en9	    :std_logic:='0';
 -- <END_1>
 -------------------------------------------------------------------------------
 
@@ -89,17 +109,33 @@ SIG : signalgenerator port map (  clk => clk_s, reset=>reset_s, output=>phi_s );
 
 -------------------------------------------------------------------------------
 -- <BEGIN_2> 
-  OBS_1  :  observer generic map(observernumber => x"0003") port map ( output=>add1,clk=>clk_s,reset =>reset_s,enable_in => enable_s,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=> en1) ; 
-  OBS_2  :  observer generic map(observernumber => x"0003") port map ( output=>add2,clk=>clk_s,reset =>reset_s,enable_in => en1,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=> en2) ; 
-  OBS_3  :  observer generic map(observernumber => x"0003") port map ( output=>add3,clk=>clk_s,reset =>reset_s,enable_in => en2,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=> next_obs_s) ;
-    
+  OBS_0:  observer GENERIC MAP(observernumber => x"000A")
+    PORT MAP ( output=>add(0),clk=>clk_s,reset =>reset_s, enable_in =>enable_s,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en1) ;
+OBS_1:  observer GENERIC MAP(observernumber => x"000A")
+    PORT MAP ( output=>add(1),clk=>clk_s,reset =>reset_s, enable_in =>en1,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en2) ;
+OBS_2:  observer GENERIC MAP(observernumber => x"000A")
+    PORT MAP ( output=>add(2),clk=>clk_s,reset =>reset_s, enable_in =>en2,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en3) ;
+OBS_3:  observer GENERIC MAP(observernumber => x"000A")
+    PORT MAP ( output=>add(3),clk=>clk_s,reset =>reset_s, enable_in =>en3,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en4) ;
+OBS_4:  observer GENERIC MAP(observernumber => x"000A")
+    PORT MAP ( output=>add(4),clk=>clk_s,reset =>reset_s, enable_in =>en4,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en5) ;
+OBS_5:  observer GENERIC MAP(observernumber => x"000A")
+    PORT MAP ( output=>add(5),clk=>clk_s,reset =>reset_s, enable_in =>en5,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en6) ;
+OBS_6:  observer GENERIC MAP(observernumber => x"000A")
+    PORT MAP ( output=>add(6),clk=>clk_s,reset =>reset_s, enable_in =>en6,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en7) ;
+OBS_7:  observer GENERIC MAP(observernumber => x"000A")
+    PORT MAP ( output=>add(7),clk=>clk_s,reset =>reset_s, enable_in =>en7,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en8) ;
+OBS_8:  observer GENERIC MAP(observernumber => x"000A")
+    PORT MAP ( output=>add(8),clk=>clk_s,reset =>reset_s, enable_in =>en8,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en9) ;
+OBS_9:  observer GENERIC MAP(observernumber => x"000A")
+    PORT MAP ( output=>add(9),clk=>clk_s,reset =>reset_s, enable_in =>en9,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=> next_obs_s) ;
 -- <END_2>
 -------------------------------------------------------------------------------
 
 
 -------------------------------------------------------------------------------
 -- <BEGIN_3> 
-output_s <= (add1  and add2 and add3); 
+output_s <= and_reduce(add);
 -- <END_3> 
 -------------------------------------------------------------------------------    
     
