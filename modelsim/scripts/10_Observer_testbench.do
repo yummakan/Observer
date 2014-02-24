@@ -56,7 +56,8 @@ add wave  -color "light blue" add(8)
 add wave  -color "orange" /ten_observer_testbench/OBS_9/cycle
 add wave  -color "orange" /ten_observer_testbench/OBS_9/count_p
 add wave  -color "light blue" add(9)
-
+add wave clk_s
+add wave  -color "yellow" phi_s 
 add wave  -color "red" output_s
 
 

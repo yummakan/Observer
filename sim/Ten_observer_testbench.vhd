@@ -13,7 +13,7 @@ END ;
 architecture testbench_arch  OF ten_observer_testbench   IS
   
   constant CLOCK_PERIOD :time := 20ns;
-  constant TAU          :integer := 1 ;
+  constant TAU          :integer := 3 ;
 
   procedure CYCLE(
     signal clk : out std_logic) is

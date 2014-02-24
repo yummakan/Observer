@@ -10,12 +10,11 @@ architecture Behavioural of observer is
 signal inc_tau	     								 : unsigned(8 downto 0):= "000000000";
 signal count,count_next       	     : unsigned(15 downto 0):= x"0001";
 signal count_p,count_p_next	         : unsigned(15 downto 0):= x"0002";
---signal count,count_next       	     : unsigned(15 downto 0):= observernumber;
---signal count_p,count_p_next	         : unsigned(15 downto 0):= observernumber+1;
 signal cycle,cycle_next              : unsigned(15 downto 0) := x"0000";
+signal direction,direction_next      : std_logic := '1';         
 --signal cycle,cycle_next              : unsigned(15 downto 0) := observernumber+observernumber;
 --signal direction,direction_next      : std_logic := '0';  
-signal direction,direction_next      : std_logic := '1';          
+ 
 signal enable_logic                  : std_logic := '0';
 signal output_next									 : std_logic := '0';				
 begin --BEGIN ARCHITECTURE
@@ -108,8 +107,6 @@ end process comb_logic;
 				--direction       <='0';
         count   <= x"0001";
         count_p <= x"0002";
-				--count     <= observernumber;
-        --count_p		<= observernumber+1;
 				output    <= '0';
 				enable_out <='0';
       end if;--if(enable_in)and (reset=0)
