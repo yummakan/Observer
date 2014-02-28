@@ -1,0 +1,361 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Vorlage f�r eine Studien- oder Diplomarbeit f�r den Fachbereich Informatik
+% der Universit�t Karlsruhe (TH)
+%
+% Autor:   Tilo Gockel
+% Version: 0.920
+% Datum:   12. Mai 2010
+%
+% Kontakt: Hochschule Aschaffenburg,
+% Tilo Gockel (Dr.-Ing.), Forschungsreferat
+%
+% info@formbuch.de
+% http://www.formbuch.de
+%
+% Anmerkungen
+%
+% 1.) article-Style, statt report-Style
+%
+% Soll statt des report-Styles der article-Style genutzt werden,
+% so m�ssen chapters durch sections, sections durch subsection usw. ersetzt
+% werden. Weiterhin kann ein Kapitelbeginn auf der rechten Seite dann nicht
+% mehr durch openright eingestellt werden, nur noch durch jeweilige
+% \cleardoublepage -Befehle (vgl. unten).
+%
+%
+% 2.) Lizenz
+%
+% Das Template darf angepasst, ver�ndert, erweitert und auch kommerziell vertrieben werden. 
+% Die einzige Auflage ist, dass die Quelle des Templates in den Literaturquellen genannt 
+% und im Text als Quelle referenziert wird. Hierzu ist dem Text ein kurzer Satz beizuf�gen, 
+% und am Ende ist die Quelle einzuf�gen:
+% Einzuf�gende Textzeile (Fu�note):
+% Der vorliegende Text ist auf Basis des Latex-Templates zu [1] erstellt.
+% Einzuf�gende zugeh�rige Quelle:
+% [1] T. \mbox{Gockel}. Form der wissenschaftlichen Ausarbeitung. Springer-Verlag, Heidelberg, 2008. 
+% Begleitende Materialien unter 
+% \url$<http://wwwiaim.ira.uka.de/form-der-wissenschaftlichen-ausarbeitung>$.
+% Weiterhin ist es sinnvoll, bei der Weitergabe des Templates die Latex-Quellen und die PDF-Datei
+% nicht zu trennen.
+%
+%
+% 3.) Versionsnummern der verwendeten Programme (alles unter Windows)
+%
+% (im Regelfall werden neuere Versionen aber eher von Vorteil sein)
+%
+%     Miktex 2.8
+%     http://www.miktex.org
+%
+%     TexnicCenter Version 1.0 Stable Release Candidate 1
+%     http://www.texniccenter.org
+%
+%     Texaide 4.0a
+%     http://www.dessci.com/en/products/texaide
+%
+%     Adobe Acrobat Prof. 7.0
+%     http://www.adobe.com/de/
+%
+%     Ghostscript 8.14, Ghostview 4.6
+%     http://pages.cs.wisc.edu/~ghost
+%
+%     MS Office 2002, 2007 ...
+%     http://office.microsoft.com/de-de/default.aspx
+%
+%     Adobe Photoshop CS4
+%     http://www.adobe.com/de/products/photoshop/family/
+%
+%     Gnuplot 4.2
+%     http://www.gnuplot.info
+%   
+%     PrettyPrinter a2ps
+%     http://www.gnu.org/software/a2ps
+%
+%     Text-Ersetzungswerkzeug grep, unter Windows
+%     http://gnuwin32.sourceforge.net/packages/grep.htm
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+ \documentclass[oneside,12pt]{Classes/CUEDthesisPSnPDF}
+%\documentclass[a4paper,german,twoside,openright,11pt  ]{report} 
+
+
+
+\usepackage[latin1]{inputenc} % Zeichensatz, erm�glicht die direkte Eingabe von Umlauten im Editor
+\usepackage[pdftex]{graphicx} % Einbindung von Grafiken (pdf, png, jpg)
+\usepackage{float}            % bietet Option [H] f�r bombenfestes Verankern
+%\usepackage[ngerman]{babel}   % Silbentrennung nach der neuen deutschen Rechtschreibung, z.B.: Sys-tem
+\usepackage{amstext}          % f�r Klartext via \text{} in Formeln
+\usepackage{amsfonts}         % f�r komplexere Formeln (Mengensymbole ...)
+\usepackage{amssymb}          % f�r komplexere Formeln (Mengensymbole ...)
+\usepackage{bm}               % bold math, f�r \bm{}
+\usepackage{enumerate}        % verbessert Aufz�hlungen
+\usepackage[bottom]{footmisc} % Fussnoten am Seitenende
+\usepackage{array}            % f�r Tabellen: bindet tabular-Umgebung ein
+\usepackage{algorithm}        % f�r Algorithmen
+\usepackage{algorithmic}      % f�r Algorithmen
+\usepackage{ntheorem}
+\usepackage{theorem}
+\usepackage{pdfpages}         % f�r die Einbindung kompletter pdf-*Seiten*
+\usepackage{parskip}          % zw. Abs�tzen: eine knappe Leerzeile statt h�ngender Einz�ge
+\usepackage[right]{eurosym}   % Eurosymbol
+\usepackage{xcolor}           % farbiger Text
+\usepackage[hyphens]{url}     % f�r \url{http://www}, Option hyp erlaubt auch Umbruch nach "-"
+\usepackage{makeidx}          % Package zur Indexerstellung
+\usepackage{multicol}         % zur Indexerstellung in zwei Spalten
+\usepackage[numbers, square]{natbib}   % F�r \setlength{\bibsep}{3mm}; square macht eckige Klammern
+
+
+%\usepackage[cmex10]{amsmath}  % f�r erw. Formeloptionen, Option [] zur Vermeidung von Type3-Fonts
+%\usepackage{mathcomp}         %\tcmu \tcohm \tccelsius.. im Mathemodus, nichtkursiv; problematisch!
+%\usepackage{textcomp}         % f�r \textdegree , \textcelsius , macht aber manchmal auch Probleme!
+
+
+%\usepackage[plainpages=false, hypertexnames=false]{hyperref}
+                               % hyperref statt \url geht, vertr�gt sich allerdings nicht mit den 
+                               % eingef�gten / ver�nderten Seitenzahlen ... (die stimmen dann nicht mehr)
+                                
+
+
+\definecolor{darkred}{rgb}{0.7,0.0,0.0}
+
+
+
+\sloppy                       % gro�z�giger Zeilenumbruch 
+                              % -> keine rechts rausragenden Zeilen mehr
+
+
+\renewcommand{\listofalgorithms}   % Text "Algoverzeichnis", statt "List of Algos"
+{
+\begingroup
+\listof{algorithm}{Algorithmenverzeichnis}
+\endgroup
+}
+
+
+
+\floatname{algorithm}{Algorithmus} % Text im Algo: Algorithmus statt algorithm
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Index-Erstellung
+%
+% Anmerkung: f�r die Indexerstellung muss auch die TeXnicCenter-IDE angepasst 
+% werden:
+% 1.) Projekt / Eigenschaften / verwendet MakeIndex [x] 
+% 2.) Ausgabe / Ausgabeprofil definieren
+%
+\makeindex % erstelle einen Index bzw. ein Sachverzeichnis)
+%
+% Wenn kein Index gew�nscht ist: einfach \makeindex auskommentieren
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Literaturverzeichnis mit BibTeX
+%
+\bibliographystyle{ka-style} % Uni-KA-Style  
+\setlength{\bibsep}{3mm}                  % Abst�nde im Litverzeichnis
+%
+% Anmerkung: das Dokument enth�lt _zwei_ Literaturverzeichnisse
+% 1.) Ein auf Basis von bibliografie.bib mit BibTeX erstelltes Verzeichnis
+% 2.) Ein einfach getipptes Verzeichnis: Literatur.tex
+%
+% -> das nicht gew�nschte einfach auskommentieren
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Gr��enanpassungen
+%
+\setlength{\unitlength}{1cm}
+\setlength{\oddsidemargin}{0.3cm}
+\setlength{\evensidemargin}{0.3cm}
+\setlength{\textwidth}{15.5cm}
+\setlength{\topmargin}{-1.2cm}
+\setlength{\textheight}{23cm}
+\columnsep 0.5cm
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Beispiel f�r die Anpassung des Satzspiegels und 
+% die Verwendung von Schnittmarken (momentan ausgeschaltet)
+% Im Beispiel: Anpassung des Drucks auf Taschenbuchformat 
+%
+% Obacht: f�r Tests hiermit (Probeausdrucke...): 
+% stets im Adobe Acrobat im Druckdialog die Seitenanpassung *abschalten*!
+% sonst stimmen die Ma�e nicht!
+% 
+%
+%\usepackage[total={90mm,144mm},centering]{geometry}
+%\geometry{papersize={120mm,190mm}} 
+%\usepackage[a4,cam,center]{crop}
+%\crop[]
+%
+% Schnittmarken und Satzspiegel - Ende
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Abk�rzungsliste, Liste explizit vorgegebener Abk.
+%
+% Anmerkung: f�r W�rter mit Umlauten
+% muss das Paket \usepackage[T1]{fontenc} eingebunden werden --
+% in der vorliegenden Version funktionieren *keine* Umlaute!!
+% 
+\hyphenation{Samm-lung-en Samm-lung Stau-beck-en Vor-na-me-in-i-ti-al % Ver-st\"ar-ker-aus-gang 
+Nach-na-me Kurz-be-zeich-nung deutsch-spra-chige deutsch-sprachig Screen-shot Screen-shots schluss-end-lich Schluss-end-lich Make-In-dex Da-tei-name Da-tei-namen Ur-instinkt Ur-instinkte} 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+\pagestyle{empty}
+\include{frontpage}               % und eidesstattliche Erkl�rung
+
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+\setcounter{page}{3}
+\tableofcontents
+\cleardoublepage
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Anmerkung:
+%
+% Falls Style "article" gew�nscht ist und
+% und dennoch die Kapitel auf der rechten Seite beginnen sollen,
+% dann ist nach jedem \include einzuf�gen:
+% \cleardoublepage
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\listoffigures
+\protect \addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\cleardoublepage
+
+
+\listoftables
+\protect \addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+\cleardoublepage
+
+
+\listofalgorithms
+\protect \addcontentsline{toc}{chapter}{Algorithmenverzeichnis}
+\cleardoublepage
+
+
+
+\include{introduction}
+\include{implementation}
+\include{hardware}
+
+%\include{Systemarchitektur}
+
+
+
+
+\protect \addtocontents{toc}{\protect\newpage}  % Seitenumbruch im Inhaltsverzeichnis
+\cleardoublepage
+\include{validation}
+\include{summary}
+
+
+
+\begin{appendix}
+%\include{Anhang_Mathematik}                 % A
+%\include{Anhang_FormatDerParameterdateien}  % B
+%\include{Anhang_Quelltexte}                 % C
+%\include{Anhang_Datenblaetter}              % D
+%\include{Anhang_Glossar}                    % E
+\end{appendix}
+
+
+
+% Erstes Literaturverzeichnis, ohne BibTeX
+
+\interlinepenalty=10000 % Literatureintr�ge: Abs�tze zusammenhalten
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Literatur}   
+\include{literature}
+
+
+
+% Zweites Literaturverzeichnis, mit BibTeX
+
+\renewcommand\bibname{Weiterf�hrende Literatur zu wissenschaftlichen Ausarbeitungen}
+\nocite{*} % auch die nicht verwendeten bibtex-Eintr�ge einblenden
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Weiterf�hrende Literatur zu wissenschaftlichen Ausarbeitungen}
+\bibliography{bibliografie}
+\interlinepenalty=100
+
+
+
+% Sachverzeichnis einf�gen
+
+\renewcommand\indexname{Sachverzeichnis}
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Sachverzeichnis}
+\linespread{0.99} % Abhilfe zu Schusterjungen .. im Index. Die Zahl ist entspr zu variieren
+\printindex                                 
+
+
+
+% Schmutzblatt (leere Seite am Ende)
+
+\newpage                                    
+\pagestyle{empty}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{general-pictures/leer.jpg}
+\end{figure}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%
