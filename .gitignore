@@ -17,6 +17,8 @@
 **/*.pin
 **/*.sof
 **/*.qws
+**/**/**/*.backup
+
 quartus/db/
 quartus/output_files/
 quartus/qsys_control_system/
