@@ -5,14 +5,16 @@ project compileoutofdate
 
 vsim -msgmode both -displaymsgmode both -novopt work.$tb
 
-add wave tau_s
+add wave -hex tau_s
 add wave clk_s
 add wave reset_s
 add wave enable_s
 add wave next_obs_s
 add wave -color "yellow" phi_s
+add wave -color "grey" /observer_testbench/OBS/enable_logic
 add wave /observer_testbench/OBS/cycle
 add wave /observer_testbench/OBS/count
+add wave /observer_testbench/OBS/count_p
 add wave -color "light blue" output_s
 
 #profile on                  

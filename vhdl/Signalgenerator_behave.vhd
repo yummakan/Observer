@@ -6,7 +6,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 architecture Behavioural of signalgenerator is
 --Declaration in the whole architecture
-constant counter_max : integer := 100;
+constant counter_max : integer := 200;
 type GENERATOR_STATE_TYPE is 	(GENERATOR_STATE_SECOND_PERIOD,
                                  GENERATOR_STATE_FIRST_PERIOD,
                                  GENERATOR_STATE_RESET

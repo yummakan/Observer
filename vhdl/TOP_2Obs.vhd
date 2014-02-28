@@ -7,12 +7,14 @@
 
 
 
+
+
 LIBRARY ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use IEEE.std_logic_misc.all;
 
-entity top is
+entity top_2Obs is
 
 port (
    CLOCK_50                            	:in	std_logic;
@@ -24,7 +26,7 @@ end entity;
 --------------------------------------------------------------------------
 ------------------      ARCHITECTURE    ---------------------------------
 --------------------------------------------------------------------------
-architecture rtl of top is
+architecture rtl of top_2Obs is
 
 constant  tau_range	:integer := 1;	
 
@@ -85,12 +87,6 @@ FOR OBS_0 : observer
   use entity  work.observer(Behavioural);
 FOR OBS_1 : observer 
   use entity  work.observer(Behavioural);
-FOR OBS_2 : observer 
-  use entity  work.observer(Behavioural);
-FOR OBS_3 : observer 
-  use entity  work.observer(Behavioural);
-FOR OBS_4 : observer 
-  use entity  work.observer(Behavioural);
 
 --  <END_0>
 -------------------------------------------------------------------------------
@@ -103,11 +99,8 @@ signal phi_s		:  std_logic	:='0';
 signal next_obs_s       :  std_logic	:='0';
 -------------------------------------------------------------------------------
 -- <BEGIN_1> 
-signal add: std_logic_vector(4 downto 0):=(others=>'0');
+signal add: std_logic_vector(1 downto 0):=(others=>'0');
 signal en1	    :std_logic:='0';
-signal en2	    :std_logic:='0';
-signal en3	    :std_logic:='0';
-signal en4	    :std_logic:='0';
 
 -- <END_1>
 -------------------------------------------------------------------------------
@@ -133,16 +126,10 @@ begin
   
 -------------------------------------------------------------------------------
 -- <BEGIN_2> 
-OBS_0:  observer GENERIC MAP(observernumber => x"0005")
+OBS_0:  observer GENERIC MAP(observernumber => x"0002")
     PORT MAP ( output=>add(0),clk=>clk_s,reset =>reset_s, enable_in =>enable_s,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en1) ;
-OBS_1:  observer GENERIC MAP(observernumber => x"0005")
-    PORT MAP ( output=>add(1),clk=>clk_s,reset =>reset_s, enable_in =>en1,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en2) ;
-OBS_2:  observer GENERIC MAP(observernumber => x"0005")
-    PORT MAP ( output=>add(2),clk=>clk_s,reset =>reset_s, enable_in =>en2,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en3) ;
-OBS_3:  observer GENERIC MAP(observernumber => x"0005")
-    PORT MAP ( output=>add(3),clk=>clk_s,reset =>reset_s, enable_in =>en3,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=>en4) ;
-OBS_4:  observer GENERIC MAP(observernumber => x"0005")
-    PORT MAP ( output=>add(4),clk=>clk_s,reset =>reset_s, enable_in =>en4,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=> next_obs_s) ;
+OBS_1:  observer GENERIC MAP(observernumber => x"0002")
+    PORT MAP ( output=>add(1),clk=>clk_s,reset =>reset_s, enable_in =>en1,invariance_tau => tau_s,signal_phi=> phi_s,enable_out=> next_obs_s) ;
 
 -- <END_2>
 -------------------------------------------------------------------------------		
@@ -163,9 +150,9 @@ output_s <= and_reduce(add);
   GPIO(0) <= reset_s;
   GPIO(1) <= enable_s;	
   GPIO(2) <= en1;		
-  GPIO(3) <= en2;	
-  GPIO(4) <= en3;		
-  GPIO(5) <= en4;	
+  --GPIO(3) <= en2;	
+  --GPIO(4) <= en3;		
+  --GPIO(5) <= en4;	
   GPIO(6) <= next_obs_s;  
   GPIO(7) <= clk_g;
   GPIO(8) <= phi_s;	
@@ -173,9 +160,9 @@ output_s <= and_reduce(add);
   --GPIO(10) <= add0;	
   GPIO(10) <= add(0);		
   GPIO(11) <= add(1);		
-  GPIO(12) <= add(2);		
-  GPIO(13) <= add(3);		
-  GPIO(14) <= add(4);	
+  --GPIO(12) <= add(2);		
+  --GPIO(13) <= add(3);		
+  --GPIO(14) <= add(4);	
   GPIO(15)<= output_s;	
 
   tau_s		<= std_logic_vector(to_unsigned(tau_range,8));

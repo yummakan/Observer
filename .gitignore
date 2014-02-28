@@ -25,6 +25,8 @@ quartus/.qsys_edit
 quartus/*.txt
 quartus/*.sdc~
 
+modules/greybox_tmp/
+
 src/**/.force_relink
 src/**/*.elf
 src/**/*.map
