@@ -29,36 +29,36 @@
 
 In embedded real time systems it is necessary to make efforts to verify a system design.
 A system design can be formalized by a mathematical specification for a dynamic system model.
-One approach to verify a system design is the a deduction of the model, that shows that the design implies 
+One approach to system design verification is the deduction of a model to show that the design implies 
 the requirements. 
-In critical real time systems timing constraints are expressed with support of temporal logic, either explicit or implicit
+In critical real time systems timing constraints are expressed with either explicit or implicit
 temporal logic. 
-Explicit time logic is a expression of a time variable. The time variable can be a representation of a time intervall or
-it is a variable in a temporal logic. Implicit time logic (for example MTL - Metric Temporal Logic) 
-is using temporal operators that constrain the extend of a state.
+Explicit time logic is an expression of a time variable. The time variable can be a representation of a time intervall or
+a variable in a temporal logic. Implicit time logic such as Metric Temporal Logic (MTL) 
+uses temporal operators to constrain the extend of a state.
 It is based on interval temporal logic and the duration concept.
-Implicit time logic can be very usefull to express before/after relations
+Implicit temporal logic can be very useful to express before/after relations
 between concurrent actions.
-Further details,reader find more information in \cite{210306}.
+For more information \cite{210306} provides further details on this topic.
 In runtime verification a monitor evaluates executions of 
 a \textbf{System under Test(SUT)} \cite{RTFMBJ13}. 
 The evaluation is formalized from a formal specification.
-At ultra critical systems it is important that four major requirements will be met:
+For ultra critical systems it is important to meet four major requirements:
 \begin{enumerate}
- \item functionality : cannot change targets behaviour
- \item certifiability: must avoid re-certification
- \item timing :	  must not interfere with the targets timing
- \item swap :     must not exhaust size, weight and power tolerance
+ \item Functionality : cannot change targets behaviour
+ \item Certifiability: must avoid re-certification
+ \item Timing :	  must not interfere with the targets timing
+ \item Swap :     must not exhaust size, weight and power tolerance
 \end{enumerate}
 \newpage
-The proof about this concept and the basis of my work can be read in this publication: 
+The proof of this concept and the basis of my work can be read in this publication: 
 ``\textbf{Real-Time Runtime Verification on Chip} ''.\cite{RTFMBJ13}.\newline
 A \textbf{Runtime Verification Unit(RVU)} is a possibility to aim this requirements.
 It is a, seperated from SUT, synthesized hardware that monitors the execution of a SUT.\newline
-The topic of my thesis ``Hardware implementation of an invariant observer'' can also be considered as a RVU, 
+The topic of my thesis ``Hardware implementation of an invariant observer'' can also be considered as an RVU, 
 it evaluates the execution of a SUT and checks it for invariance.
 My observer is an alternative  implementation of the invariant observer INVARIANT-SYMBOL published in \cite{RTFMBJ13},
-that bypass the problem of ressource limitation and make use of the significant advantages of a high parallel
+that bypasses the problem of ressource limitation and makes use of the significant advantages of a highly parallel
 \textbf{Field Programmable Gate Array(FPGA)} hardware implementation.
 
 
